@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SMEAR search</title>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="SMEAR search page. Tree of the more than 1000 variables" name="Description">
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+    <link href="/static/css/jqtree.css" rel="stylesheet">
+    <script
+            crossorigin="anonymous"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha256-bqVeqGdJ7h/lYPq6xrPv/YGzMEb6dNxlfiTUHSgRCp8="
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <link crossorigin="anonymous"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css"
+          integrity="sha256-FAOaXTpl90/K8cXmSdsskbQN3nKYulhCpPbcFzGTWKI=" rel="stylesheet"/>
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+    <!--script src="/static/js/hc/7.1.2/highcharts.js"></script>
+    <script src="/static/js/hc/7.1.2/highcharts-more.js"></script-->
+    <script src="/static/js/hc/7.1.2/highstock.js"></script>
+    <script src="/static/js/hc/7.1.2/modules/accessibility.js"></script>
+    <script src="/static/js/hc/7.1.2/modules/heatmap.js"></script>
+    <script src="/static/js/hc/7.1.2/modules/boost.js"></script>
+    <script src="/static/js/hc/7.1.2/modules/data.js"></script>
+    <script src="/static/js/hc/7.1.2/modules/exporting.js"></script>
+    <script src="/static/js/hc/7.1.2/modules/export-data.js"></script>
+    <script src="/static/js/moment.min.js"></script>
+    <script src="/static/js/tree.jquery.js"></script>
+    <script src="/static/js/csckirjasto.js"></script>
+    <script type="text/javascript">
+        var nyt = moment().subtract(1, 'days');
+        var ennen = moment().subtract(31, 'days'); //from
+        var times = aikaparametritulostus(ennen, nyt);
+        var aika = nyt.clone(); // To datepickerin viimeisin valinta!
+        var avg = 30;
+        var avgtype = 0;
+        const width = 450;
+        const height = 300;
+        const exportingwidth = 4000; //you have to export image to print
+        const printmaxwidth = 1600; // (default was 768) note max. So normal print is screen width 450
+        const LF = "\n";
+        const KV = ": ";
+
+        document.addEventListener('DOMContentLoaded', function () {
+            let $tree = $('#tree').tree();
+            $tree.on('tree.open', function (e) {
+                let muuttujat = [];
+                let table = "";
+                for (let i = 0; i < e.node.children.length; i++) {
+                    let c = e.node.children[i];
+                    if (c.variable !== undefined) {
+                        let li = c.element;
+                        let title = document.createAttribute("title");
+                        title.value = c.variable + LF + 'COLUMN' + KV + c.table + ':' + c.column + LF + 'SOURCE' + KV + c.source + LF + 'UNIT' + KV + c.unit + LF + 'AVAILABLE' + KV + c.available;
+                        li.setAttributeNode(title);
+                        muuttujat.push(c.column);
+                        table = c.table;
+                    }
+                }
+                let jqxhr = $.getJSON(
+                    "/smear/api/saatavuus/" + table + times + '&variables=' + muuttujat.toString() +
+                    "&quality=" + document.getElementById("quality").value,
+                    function (result) {
+                        if (!jQuery.isEmptyObject(result)) {
+                            for (let i = 0; i < e.node.children.length; i++) {
+                                let c = e.node.children[i];
+                                if (c.column !== undefined) {
+                                    c.color = result[c.column];
+                                    let li = c.element;
+                                    let span = li.getElementsByClassName('jqtree-title jqtree_common');
+                                    span[0].style.color = result[c.column];
+                                }
+                            }
+                        }
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrow) {
+                        console.log("Saatavus query failed" + textStatus);
+                        console.log("incoming Text " + jqXHR.responseText);
+                    });
+            });
+
+            $tree.on('tree.click', function (e) {
+                // Disable single selection
+                e.preventDefault();
+                let selected_node = e.node;
+
+                if (selected_node.id === undefined) {
+                    console.warn('The multiple selection functions require that nodes have an id');
+                }
+
+                if ($tree.tree('isNodeSelected', selected_node)) {
+                    $tree.tree('removeFromSelection', selected_node);
+                } else {
+                    //console.log(selected_node.selectable);
+                    //console.log(selected_node.children);
+                    if (false != selected_node.selectable) {
+                        $tree.tree('addToSelection', selected_node);
+                    } /*else {
+                        console.log("selection else");
+                    }*/
+                }
+            });
+            $(function () {
+                $('[class="jqtree_common"]').tooltip()
+            })
+        });
+
+        Highcharts.setOptions({
+            colors: ['#FF0000', '#000000', '#0000FF', '#50B432', '#DDDF00',
+                '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
+        });
+
+        function hc(id, api, times, text, y, q) {
+            $.getJSON(window.location.origin + api + times + '&avg=' + avg + '&avgtype=' + avgtype + "&quality=" + q, function (data) {
+                let pos = api.lastIndexOf("/");
+                let variable = api.substr(pos + 1);
+                Highcharts.stockChart(id, {
+
+                    //xAxis: {
+                    //    type: 'datetime'
+                    //},
+                    boost: {
+                        enabled: true,
+                        useGPUTranslations: true,
+                        usePreallocated: true
+                    },
+                    series: [{
+                        name: variable,
+                        data: data
+                    }],
+                    title: {
+                        text: text
+                    },
+                    yAxis: {
+                        title: {
+                            text: y
+                        },
+                        showFirstLabel: false
+                    },
+                    rangeSelector: {
+                        inputEnabled: false,
+                        buttonTheme: {
+                            visibility: 'hidden'
+                        },
+                        labelStyle: {
+                            visibility: 'hidden'
+                        }
+                    },
+                    exporting: {
+                        width: exportingwidth,
+                        scale: 5,
+                        printMaxWidth: printmaxwidth
+                    },
+                    legend: {
+                        align: 'left',
+                        verticalAlign: 'top',
+                        borderWidth: 0
+                    }
+                });
+            });
+        }
+
+        function selectFunction() {
+            let pituus = document.getElementById("pituus").value;
+            nyt = aika.clone();
+            ennen = nyt.clone();
+
+            if ('week' == pituus) {
+                ennen.subtract(7, 'days');
+            } else if ('year' == pituus) {
+                ennen.subtract(365, 'days');
+            } else if ('month' == pituus) {
+                ennen.subtract(31, 'days');
+            } else {
+                ennen.subtract(1, 'days');
+            }
+
+            times = aikaparametritulostus(ennen, nyt);
+        }
+
+        function minusbutton() {
+            let pituus = document.getElementById("pituus").value;
+            nyt = aika.clone();
+            if ('week' == pituus) {
+                nyt.subtract(7, 'days');
+                ennen = nyt.clone();
+                ennen.subtract(7, 'days');
+            } else if ('year' == pituus) {
+                nyt.subtract(365, 'days');
+                ennen = nyt.clone();
+                ennen.subtract(365, 'days');
+            } else if ('month' == pituus) {
+                nyt.subtract(31, 'days');
+                ennen = nyt.clone();
+                ennen.subtract(31, 'days');
+            } else {
+                nyt.subtract(1, 'days');
+                ennen = nyt.clone();
+                ennen.subtract(7, 'days');
+            }
+            aika = nyt.clone(); // 11 lines above
+            times = aikaparametritulostus(ennen, nyt);
+            $('#datepicker1').datepicker('update', aika.toDate())
+        }
+
+        function plusbutton() {
+            let pituus = document.getElementById("pituus").value;
+            nyt = aika.clone();
+            if ('week' == pituus) {
+                nyt.add(7, 'days');
+                nyt = tarkista(nyt);
+                ennen = nyt.clone();
+                ennen.add(7, 'days');
+            } else if ('year' == pituus) {
+                ennen.subtract(365, 'days');
+            } else if ('month' == pituus) {
+                ennen.subtract(31, 'days');
+            } else {
+                nyt.add(1, 'days');
+                nyt = tarkista(nyt);
+                ennen = nyt.clone();
+                ennen.add(7, 'days');
+            }
+            aika = nyt.clone(); // 11 lines above
+            times = aikaparametritulostus(ennen, nyt);
+            $('#datepicker1').datepicker('update', aika.toDate())
+        }
+
+        function avgFunction() {
+           let  aika = document.getElementById("avg").value;
+           if ('1h' == aika) {
+               avg = 60;
+           } else if ('30min' == aika) {
+               avg = 30;
+           } else {
+               avg = 0;
+           }
+            avgtype = document.getElementById("avgtype").value;
+            if (0 == avgtype) {
+                avgtype = 2;
+                document.getElementById("avgtype").value = 2;
+            }
+
+        }
+
+        function plotbutton() {
+            let nodes = $('#tree').tree('getSelectedNodes');
+            avgtype = document.getElementById("avgtype").value;
+            let quality = document.getElementById("quality").value;
+            let element = document.getElementById("graph-list");
+            let child = element.lastElementChild;
+            while (child) { // poistetaan vanhat
+                element.removeChild(child);
+                child = element.lastElementChild;
+            }
+            let luokka = document.createAttribute("class");
+            luokka.value = "hc";
+            let i;
+            for (i = 0; i < nodes.length; i++) {
+                let node = nodes[i];
+                //console.log("Node table: " + node.table);
+                let li = document.createElement("li");
+                let div = document.createElement("div");
+                let id = document.createAttribute("id");
+                id.value = 'id' + i;
+                div.setAttributeNode(luokka.cloneNode());
+                div.setAttributeNode(id);
+                li.appendChild(div);
+                element.appendChild(li);
+                hc(id.value, '/smear/api/' + taulu(node.table) + node.column, times, node.name, node.unit, quality);
+            }
+        }
+    </script>
+    <link href="/static/css/avaa.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="charts">
+    <aside class="textcolumn">
+        <div data-url="/smear/api/tree/" id="tree"></div>
+    </aside>
+    <main class="container-fluid">
+
+        <div class="input-group date" id='datepicker1'>
+            <label for="pituus">Shift: </label>
+            <button class="left" onclick="minusbutton()" type="button">&#60;&#60;</button>
+            <select id="pituus" onchange="selectFunction()">
+                <option value="day">Day</option>
+                <option value="week">Week</option>
+                <option value="month">Month</option>
+                <option value="year">Year</option>
+            </select>
+            <button class="right" onclick="plusbutton()" type="button">&#62;&#62;</button>
+            <label for="fct">To: </label><input class="form-control" data-date-end-date="0d"
+                                                data-date-format="yyyy-mm-dd" id="fct"
+                                                data-date-start-date="1990-01-01" type="text">
+            <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+            <button class="plot" onclick="plotbutton()" type="button">Plot</button>
+        </div>
+        <div class="average">
+            <label for="quality">Quality Level: </label><select id="quality">
+            <option value="0">None</option>
+            <option value="2">Quality Checked</option>
+        </select>
+            <label for="avg">Averaging: </label><select id="avg" onchange="avgFunction()">
+            <option value="none">None</option>
+            <option value="30min">30min</option>
+            <option value="1h">1h</option>
+        </select>
+            <label>Averaging Type: <select id="avgtype">
+                <option value="0">None</option>
+                <option value="2">Arithmetic</option>
+                <option value="1">Geometric</option>
+                <option value="4">Median</option>
+                <option value="3">Sum</option>
+                <option value="5">Max</option>
+                <option value="6">Min</option>
+            </select></label>
+        </div>
+        <script type="text/javascript">
+            $('#datepicker1').datepicker({
+                "autoclose": true,
+                "format": 'yyyy-mm-dd'
+            });
+            $(function () {
+                $('#datepicker1').datepicker().on('changeDate', function (e) {
+                    nyt = moment(e.date);
+                    ennen = nyt.clone();
+                    aika = nyt.clone();
+                    let pituus = document.getElementById("pituus").value;
+                    if ('week' == pituus) {
+                        ennen.subtract(7, 'days');
+                    } else if ('year' == pituus) {
+                        ennen.subtract(365, 'days');
+                    } else if ('month' == pituus) {
+                        ennen.subtract(31, 'days');
+                    } else {
+                        ennen.subtract(1, 'days');
+                    }
+                    times = aikaparametritulostus(ennen, nyt);
+                    $('#datepicker1').datepicker('hide');
+                });
+            });
+        </script>
+        <ul class="graph" id="graph-list">
+        </ul>
+    </main>
+</div>

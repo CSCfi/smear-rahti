@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SMEAR dashboard</title>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="SMEAR dashboard, frontpage. Real time climate data." name="Description">
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+    <script
+            crossorigin="anonymous"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha256-bqVeqGdJ7h/lYPq6xrPv/YGzMEb6dNxlfiTUHSgRCp8="
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <link crossorigin="anonymous"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css"
+          integrity="sha256-FAOaXTpl90/K8cXmSdsskbQN3nKYulhCpPbcFzGTWKI=" rel="stylesheet"/>
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+    <script src="/static/js/hc/7.1.2/highcharts.js"></script>
+    <script src="/static/js/hc/7.1.2/highcharts-more.js"></script>
+    <script src="/static/js/hc/7.1.2/modules/accessibility.js"></script>
+    <script src="/static/js/hc/7.1.2/modules/heatmap.js"></script>
+    <script src="/static/js/hc/7.1.2/modules/boost.js"></script>
+    <script src="/static/js/hc/7.1.2/modules/data.js"></script>
+    <script src="/static/js/hc/7.1.2/modules/exporting.js"></script>
+    <script src="/static/js/hc/7.1.2/modules/export-data.js"></script>
+    <script src="/static/js/moment.min.js"></script>
+    <script src="/static/js/csckirjasto.js"></script>
+    <script type="text/javascript">
+        //var d = new Date();
+        var nyt = moment().subtract(1, 'days'); //to
+        var ennen = moment().subtract(11, 'days'); //from
+        var aika = nyt.clone(); // To datepickerin viimeisin valinta!
+        var times = aikaparametritulostus(ennen, nyt);
+        const width = 450;
+        const exportingwidth = 4000; //you have to export image to print
+        const printmaxwidth = 1000; // (default was 768) note max. So normal print is screen width 450
+        const height = 300;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            drawWinRose(times)
+        });
+
+        function drawWinRose(times) {
+            //var seriesOptions = [];
+            let myChart = Highcharts.chart('windrose', {
+                chart: {
+                    polar: true,
+                    type: 'line'
+                },
+                title: {
+                    text: 'Wind direction %'
+                },
+                xAxis: {
+                    tickmarkPlacement: 'on',
+                    categories: ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE",
+                        "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]
+                    //['Hyytiälä', 'Kumpula', 'Värriö']
+                },
+                yAxis: {
+                    min: 0,
+                    endOnTick: false,
+                    showLastLabel: true,
+                    title: {
+                        text: 'Stations %'
+                    },
+                    reversedStacks: false
+                },
+                exporting: {
+                    width: exportingwidth,
+                    printMaxWidth: printmaxwidth
+                },
+
+                plotOptions: {
+                    series: {
+                        //stacking: 'overlap',
+                        shadow: false,
+                        groupPadding: 0,
+                        pointPlacement: 'on'
+                    }
+                }
+            });
+
+            function ajax_get(url, callback) {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                        //console.log(window.location.origin);
+                        try {
+                            var data = JSON.parse(xmlhttp.responseText);
+                        } catch (err) {
+                            console.log(err.message + " in " + xmlhttp.responseText);
+                            return;
+                        }
+                        callback(data);
+                    }
+                };
+
+                xmlhttp.open("GET", url, true);
+                xmlhttp.send();
+            }
+
+            ajax_get('/smear/api/v3/windrose' + times, function (wrdata) {
+                //myChart.series[0].setData(wrdata[0]);
+                myChart.addSeries({
+                    data: wrdata[0].data,
+                    name: wrdata[0].name
+                });
+                myChart.addSeries({
+                    data: wrdata[1].data,
+                    name: wrdata[1].name
+                });
+                myChart.addSeries({
+                    data: wrdata[2].data,
+                    name: wrdata[2].name
+                });
+                //console.log("Winrose: " + times);
+            });
+        };
+
+        document.addEventListener('DOMContentLoaded', function () {
+            drawAerosols('?from=2019-07-27%2000:00:00&to=2019-07-28%2000:00:00');
+        });
+
+        function drawAerosols(dates) {
+            let aerosolChart = Highcharts.chart('aerosolsize', {
+                chart: {
+                    type: 'heatmap'
+                },
+                boost: {
+                    useGPUTranslations: true
+                },
+                title: {
+                    text: 'Aerosol size distribution'
+                },
+                subtitle: {
+                    text: aika.format()
+                },
+                xAxis: {
+                    visible: false,
+                },
+                yAxis: {
+                    min: 0,
+                    max: 50,
+                    labels: {
+                        enabled: false
+                    },
+                    endOnTick: false,
+                    title: {
+                        text: 'Diameter [nm] 1-1000'
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                colorAxis: {
+                    stops: [
+                        [0, '#0202aa'],
+                        [0.1, '#0202ff'],
+                        [0.3, '#02ffff'],
+                        [0.5, '#ffff02'],
+                        [0.8, '#ff0202'],
+                        [1, '#aa0202']
+                    ],
+                    min: 0,
+                    max: 100,
+                    startOnTick: false,
+                    endOnTick: false,
+                    labels: {
+                        format: '{value}'
+                    }
+                },
+                exporting: {
+                    width: exportingwidth,
+                    printMaxWidth: printmaxwidth
+                },
+                series: [{
+                    boostThreshold: 100,
+                    borderWidth: 0,
+                    nullColor: '#EFEFEF',
+                    //colsize: 24 * 3600, // one day
+                    tooltip: {
+                        headerFormat: 'Size<br/>',
+                        pointFormat: '{point.x:%e %b, %Y} {point.y}:00: <b>{point.value} ℃</b>'
+                    },
+                    turboThreshold: 100
+                }]
+            });
+
+            function requestData(paiva) {
+                $.ajax({
+                    url: '/smear/api/v3/aerosol' + paiva,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        aerosolChart.addSeries({
+                            data: data
+                        });
+                        //console.log("Aerosol: " + paiva);
+                    },
+                    cache: false
+                });
+            }
+
+            requestData(dates);
+        };
+
+        Highcharts.setOptions({
+            colors: ['#FF0000', '#000000', '#0000FF', '#50B432', '#DDDF00',
+                '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4']
+        });
+
+        function hc(id, api, text, y) {
+            Highcharts.chart(id, {
+
+                chart: {
+                    scrollablePlotArea: {
+                        minWidth: 450
+                    }
+                },
+                data: {
+                    csvURL: window.location.origin + api + times
+                },
+                title: {
+                    text: text
+                },
+                yAxis: [{ // left y axis
+                    title: {
+                        text: y
+                    },
+                    labels: {
+                        align: 'left',
+                        x: 3,
+                        y: 16,
+                        format: '{value:.,0f}'
+                    },
+                    showFirstLabel: false
+                }, { // right y axis
+                    linkedTo: 0,
+                    gridLineWidth: 0,
+                    opposite: true,
+                    title: {
+                        text: null
+                    },
+                    labels: {
+                        align: 'right',
+                        x: -3,
+                        y: 16,
+                        format: '{value:.,0f}'
+                    },
+                    showFirstLabel: false
+                }],
+                legend: {
+                    align: 'left',
+                    verticalAlign: 'top',
+                    borderWidth: 0
+                },
+                exporting: {
+                    width: exportingwidth,
+                    printMaxWidth: printmaxwidth
+                }
+
+            });
+        }
+
+        function reDraw(aika) {
+            let eilen = aika.clone();
+            eilen.subtract(1, 'days');
+            drawAerosols(aikaparametritulostus(eilen, aika));
+            hc('F_c', '/smear/csv/flux', 'CO₂ flux', 'µmol m⁻² s⁻¹');
+            hc('E', '/smear/csv/et', 'Evapotranspiration', 'mmol m⁻² s⁻¹');
+            hc('NO', '/smear/csv/no', 'NO 15-16m', 'ppb')
+            hc('Radiation', '/smear/csv/glob', 'Global radiadiation', 'W/m²')
+            hc('Rhumidity', '/smear/csv/rh', 'Relative humidity', '%');
+            hc('Hiilidioksidi', '/smear/csv/co2', 'CO₂', 'ppm');
+            hc('ts', '/smear/csv/ts', 'Soil temperature', '°C');
+            hc('SO2', '/smear/csv/so', 'SO₂ 15-16m', 'ppb');
+            hc('NOX', '/smear/csv/nox', 'NOx 15-16m', 'ppb');
+            hc('temperature', '/smear/csv/t', 'Temperature 15-16m', '°C');
+            hc('airpressure', '/smear/csv/p', 'Air pressure', 'hPa');
+            hc('windspeed', '/smear/csv/ws', 'Windspeed 15-16m', 'm/s');
+            hc('ozone', '/smear/csv/o3', 'Ozone', 'ppb');
+            hc('tconc', '/smear/csv/tac', 'Total aerosol concentration', '1/cm³');
+            drawWinRose(aikaparametritulostus(ennen, aika));
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            hc('F_c', '/smear/csv/flux', 'CO₂ flux', 'µmol m⁻² s⁻¹')
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            hc('E', '/smear/csv/et', 'Evapotranspiration', 'mmol m⁻² s⁻¹')
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            hc('NO', '/smear/csv/no', 'NO 15-16m', 'ppb')
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            hc('Radiation', '/smear/csv/glob', 'Global radiadiation', 'W/m²')
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            hc('Rhumidity', '/smear/csv/rh', 'Relative humidity', '%')
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            hc('Hiilidioksidi', '/smear/csv/co2', 'CO₂', 'ppm')
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            hc('ts', '/smear/csv/ts', 'Soil temperature', '°C')
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            hc('SO2', '/smear/csv/so', 'SO₂ 15-16m', 'ppb')
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            hc('NOX', '/smear/csv/nox', 'NOx 15-16m', 'ppb')
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            hc('temperature', '/smear/csv/t', 'Temperature 15-16m', '°C')
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            hc('airpressure', '/smear/csv/p', 'Air pressure', 'hPa')
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            hc('windspeed', '/smear/csv/ws', 'Windspeed 15-16m', 'm/s')
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            hc('ozone', '/smear/csv/o3', 'Ozone', 'ppb')
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            hc('tconc', '/smear/csv/tac', 'Total aerosol concentration', '1/cm³')
+        });
+
+        function selectFunction() {
+            let pituus = document.getElementById("pituus").value;
+            nyt = aika.clone();//moment($('#datepicker1').datepicker().Date);
+            ennen = nyt.clone();
+
+            if ('week' == pituus) {
+                ennen.subtract(7, 'days');
+            } else {
+                ennen.subtract(1, 'days');
+            }
+
+            times = aikaparametritulostus(ennen, nyt);
+            reDraw(nyt);
+        }
+
+        function minusbutton() {
+            let pituus = document.getElementById("pituus").value;
+            nyt = aika.clone(); //moment($('#datepicker1').datepicker().Date);
+            if ('week' == pituus) {
+                nyt.subtract(7, 'days');
+                ennen = nyt.clone();
+                ennen.subtract(7, 'days');
+            } else {
+                nyt.subtract(1, 'days');
+                ennen = nyt.clone();
+                ennen.subtract(7, 'days');
+            }
+            aika = nyt.clone(); // 11 lines above
+            times = aikaparametritulostus(ennen, nyt);
+            $('#datepicker1').datepicker('update', aika.toDate())
+            reDraw(nyt);
+        }
+
+        function plusbutton() {
+            let pituus = document.getElementById("pituus").value;
+            nyt = aika.clone(); //moment($('#datepicker1').datepicker().Date);
+            if ('week' == pituus) {
+                nyt.add(7, 'days');
+                nyt = tarkista(nyt);
+                ennen = nyt.clone();
+                ennen.add(7, 'days');
+            } else {
+                nyt.add(1, 'days');
+                nyt = tarkista(nyt);
+                ennen = nyt.clone();
+                ennen.add(7, 'days');
+            }
+            aika = nyt.clone(); // 11 lines above
+            times = aikaparametritulostus(ennen, nyt);
+            $('#datepicker1').datepicker('update', aika.toDate())
+            reDraw(nyt);
+        }
+
+    </script>
+    <link rel="stylesheet" type="text/css" href="/static/css/avaa.css">
+
+</head>
+<body>
+<div class="charts">
+    <main class="chartscolumn-1">
+
+        <div class="input-group date" id='datepicker1'>
+            Shift:
+            <button class="left" onclick="minusbutton()" type="button">&#60;&#60;</button>
+            <select id="pituus" onchange="selectFunction()">
+                <option value="day">Day</option>
+                <option value="week">Week</option>
+            </select>
+            <button class="right" onclick="plusbutton()" type="button">&#62;&#62;</button>
+            To: <input class="form-control" data-date-end-date="0d" data-date-format="yyyy-mm-dd"
+                       data-date-start-date="1990-01-01" type="text">
+            <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
+        </div>
+        <script type="text/javascript">
+            // language=JQuery-CSS
+            $('#datepicker1').datepicker({
+                "autoclose": true,
+                "format": 'yyyy-mm-dd'
+            });
+            $(function () {
+                $('#datepicker1').datepicker().on('changeDate', function (e) {
+                    nyt = moment(e.date);
+                    ennen = nyt.clone(); //moment is mutable!!!
+                    aika = nyt.clone(); //talteen
+                    let pituus = document.getElementById("pituus").value;
+                    if ('week' == pituus) {
+                        ennen.subtract(7, 'days');
+                    } else {
+                        ennen.subtract(1, 'days');
+                    }
+                    times = aikaparametritulostus(ennen, nyt);
+                    reDraw(nyt);
+                    $('#datepicker1').datepicker('hide');
+                });
+            });
+        </script>
+
+        <ul class="graph">
+            <li>
+                <div class="hc" id="F_c"></div>
+            </li>
+            <li>
+                <div class="hc" id="Hiilidioksidi"></div>
+            </li>
+            <li>
+                <div class="hc" id="E"></div>
+            </li>
+            <li>
+                <div class="hc" id="aerosolsize"></div>
+            </li>
+            <li>
+                <div class="hc" id="tconc"></div>
+            </li>
+            <li>
+                <div class="hc" id="ozone"></div>
+            </li>
+            <li>
+                <div class="hc" id="SO2"></div>
+            </li>
+            <li>
+                <div class="hc" id="NO"></div>
+            </li>
+            <li>
+                <div class="hc" id="NOX"></div>
+            </li>
+            <li>
+                <div class="hc" id="Radiation"></div>
+            </li>
+            <li>
+                <div class="hc" id="temperature"></div>
+            </li>
+            <li>
+                <div class="hc" id="airpressure"></div>
+            </li>
+            <li>
+                <div class="hc" id="windspeed"></div>
+            </li>
+            <li>
+                <div id="windrose" style="width:300px; height:300px;"></div>
+            </li>
+            <li>
+                <div class="hc" id="Rhumidity"></div>
+            </li>
+            <li>
+                <div class="hc" id="ts"></div>
+            </li>
+        </ul>
+    </main>
+    <aside class="textcolumn">
+        <p>SmartSMEAR is data visualization and download tool for the database of continuous atmospheric, flux, soil,
+            tree physiological and water quality measurements at&nbsp;<a href="http://www.atm.helsinki.fi/SMEAR"
+                                                                         style="text-decoration: none;">SMEAR research
+                stations</a>&nbsp;of the University of Helsinki. Air mass back-trajectories are also provided for
+            studying the connection between air mass movements and atmospheric observations at the stationary
+            measurement sites. Detailed information on the measurements is provided at <a
+                    href="https://wiki.helsinki.fi/display/SMEAR/The+SMEAR+Wikispace" style="text-decoration: none;">SMEAR
+                wikispace</a> &nbsp;and the Download page.&nbsp;Users are encouraged to contact the&nbsp;<a
+                    href="https://wiki.helsinki.fi/display/SMEAR/Data+contact+persons"><span
+                    style="color: rgb(0, 0, 0);">original data contributors</span>&nbsp;</a>or<a
+                    href="mailto:atm-data@helsinki.fi">&nbsp;<span
+                    style="color: rgb(0, 0, 0);">atm-data@helsinki.fi</span>&nbsp;</a>&nbsp;for questions or
+            clarifications.</p>
+
+        <p>Terms of use for the data and its usage can be found from the <a href="/web/smart/smear/terms-of-use"
+                                                                            target="_self">terms of use page</a></p>
+    </aside>
+</div>
+

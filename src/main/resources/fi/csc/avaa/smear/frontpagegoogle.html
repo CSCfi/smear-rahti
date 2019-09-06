@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SMEAR googlechart dashboard</title>
+    <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
+    <!-- script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script-->
+    <script
+            crossorigin="anonymous"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="/static/js/hc/7.1.1/highcharts.js"></script>
+    <script src="/static/js/hc/7.1.1/highcharts-more.js"></script>
+    <script src="/static/js/hc/7.1.1/modules/heatmap.js"></script>
+    <script src="/static/js/hc/7.1.1/modules/boost.js"></script>
+    <script src="/static/js/hc/7.1.1/modules/data.js"></script>
+    <script src="/static/js/hc/7.1.1/modules/exporting.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages': ['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        var times = "?from=2019-03-28%2000:00:00&to=2019-04-13%2000:00:00";
+        const width = 450;
+        const height = 300;
+
+        var options = {
+            vAxis: {
+                title: 'µmol m⁻² s⁻¹'
+            },
+            title: 'Hyytiälä EDDY233',
+            curveType: 'function'
+        };
+
+        var optionso = {
+            vAxis: {
+                title: 'ppb'
+            },
+            title: 'Ozone',
+            curveType: 'function'
+        };
+
+        var optionstconc = {
+            vAxis: {
+                title: '1/cm³'
+            },
+            title: 'Total aerosol consentration'
+        };
+
+        var optiot = {
+            vAxis: {
+                title: '°C'
+            },
+            title: 'Temperature 15-16m',
+            curveType: 'function'
+        };
+        var optioairpressure = {
+            vAxis: {
+                title: 'hPa'
+            },
+            title: 'Air pressure',
+            curveType: 'function'
+        };
+
+        var optiows = {
+            vAxis: {
+                title: 'm/s'
+            },
+            title: 'Windspeed 15-16m',
+            curveType: 'function'
+        };
+
+
+        function drawChart2(url, component, o) {
+            $.ajax({
+                url: url + times,
+                dataType: "json",
+                success: function (json) {
+                    var data = new google.visualization.DataTable(json);
+                    var chart = new google.visualization.LineChart(document.getElementById(component));
+                    o.explorer = {
+                        actions: ['dragToZoom', 'rightClickToReset'],
+                        axis: ['horizontal', 'vertical'],
+                        maxZoomIn: 0.1
+                    };
+                    o.width = width;
+                    o.height = height;
+                    o.legend = {position: 'top'};
+                    chart.draw(data, o);
+                }
+            });
+
+
+        }
+
+        function drawChart() {
+            drawChart2("/smear/api/hyytiälä/eddy/233/F_c", 'F_c_chart', options);
+            drawChart2("/smear/api/hyytiälä/eddy/233/E", 'E_chart', options);
+            drawChart2("/smear/api/hyytiälä/dmps/tconc", 'tconc_chart', optionstconc);
+            drawChart2("/smear/api/v2/hyytiälä/O3168/värriö/O3_1", 'ozone_chart', optionso);
+            drawChart2("/smear/api/v3/temp", "temperature_chart", optiot);
+            drawChart2("/smear/api/v3/airp", "airpressure_chart", optioairpressure);
+            drawChart2("/smear/api/v3/windspeed", "windspeed_chart", optiows);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            //var seriesOptions = [];
+            var myChart = Highcharts.chart('windrose', {
+                chart: {
+                    polar: true,
+                    type: 'line'
+                },
+                title: {
+                    text: 'Wind rose'
+                },
+                xAxis: {
+                    tickmarkPlacement: 'on',
+                    categories: ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE",
+                        "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]
+                    //['Hyytiälä', 'Kumpula', 'Värriö']
+                },
+                yAxis: {
+                    min: 0,
+                    endOnTick: false,
+                    showLastLabel: true,
+                    title: {
+                        text: 'Stations %'
+                    },
+                    reversedStacks: false
+                },
+
+                plotOptions: {
+                    series: {
+                        stacking: 'normal',
+                        shadow: false,
+                        groupPadding: 0,
+                        pointPlacement: 'on'
+                    }
+                }
+            });
+
+            function ajax_get(url, callback) {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function () {
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                        //console.log(window.location.origin);
+                        try {
+                            var data = JSON.parse(xmlhttp.responseText);
+                        } catch (err) {
+                            console.log(err.message + " in " + xmlhttp.responseText);
+                            return;
+                        }
+                        callback(data);
+                    }
+                };
+
+                xmlhttp.open("GET", url, true);
+                xmlhttp.send();
+            }
+
+            ajax_get('/smear/api/v3/windrose' + times, function (wrdata) {
+                //myChart.series[0].setData(wrdata[0]);
+                myChart.addSeries({
+                    data: wrdata[0].data,
+                    name: wrdata[0].name
+                });
+                myChart.addSeries({
+                    data: wrdata[1].data,
+                    name: wrdata[1].name
+                });
+                myChart.addSeries({
+                    data: wrdata[2].data,
+                    name: wrdata[2].name
+                });
+
+            });
+
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var aerosolChart = Highcharts.chart('aerosolsize', {
+                chart: {
+                    type: 'heatmap'
+                },
+                boost: {
+                    useGPUTranslations: true
+                },
+                title: {
+                    text: 'Aerosol size distribution'
+                },
+                xAxis: {
+                    //type: 'datetime'
+                    title: {
+                        text: '24h'
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    max: 50,
+                    labels: {
+                        enabled: false
+                    },
+                    endOnTick: false,
+                    title: {
+                        text: 'Diameter [nm] 1-1000'
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                colorAxis: {
+                    stops: [
+                        [0, '#0202aa'],
+                        [0.1, '#0202ff'],
+                        [0.3, '#02ffff'],
+                        [0.5, '#ffff02'],
+                        [0.8, '#ff0202'],
+                        [1, '#aa0202']
+                    ],
+                    min: 0,
+                    max: 100,
+                    startOnTick: false,
+                    endOnTick: false,
+                    labels: {
+                        format: '{value}'
+                    }
+                },
+                series: [{
+                    boostThreshold: 100,
+                    borderWidth: 0,
+                    nullColor: '#EFEFEF',
+                    //colsize: 24 * 3600, // one day
+                    tooltip: {
+                        headerFormat: 'Size<br/>',
+                        pointFormat: '{point.x:%e %b, %Y} {point.y}:00: <b>{point.value} ℃</b>'
+                    },
+                    turboThreshold: 100
+                }]
+            });
+
+            function requestData() {
+                $.ajax({
+                    url: '/smear/api/v3/aerosol?from=2019-04-27%2000:00:00&to=2019-04-28%2000:00:00',
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        aerosolChart.addSeries({
+                            data: data
+                        });
+                    },
+                    cache: false
+                });
+            }
+
+            requestData();
+        });
+
+        function hc(id, api, text, y) {
+            Highcharts.chart(id, {
+
+                chart: {
+                    scrollablePlotArea: {
+                        minWidth: 400
+                    }
+                },
+
+                data: {
+                    csvURL: window.location.origin + api + times
+                },
+                title: {
+                    text: text
+                },
+                yAxis: [{ // left y axis
+                    title: {
+                        text: y
+                    },
+                    labels: {
+                        align: 'left',
+                        x: 3,
+                        y: 16,
+                        format: '{value:.,0f}'
+                    },
+                    showFirstLabel: false
+                }, { // right y axis
+                    linkedTo: 0,
+                    gridLineWidth: 0,
+                    opposite: true,
+                    title: {
+                        text: null
+                    },
+                    labels: {
+                        align: 'right',
+                        x: -3,
+                        y: 16,
+                        format: '{value:.,0f}'
+                    },
+                    showFirstLabel: false
+                }],
+                legend: {
+                    align: 'left',
+                    verticalAlign: 'top',
+                    borderWidth: 0
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            hc('NO', '/smear/csv/no', 'NO 15-16m', 'ppb')
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            hc('Radiation', '/smear/csv/glob', 'Global radiadiation', 'W/m²')
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            hc('Rhumidity', '/smear/csv/rh', 'Relative humidity', '%')
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            hc('Hiilidioksidi', '/smear/csv/co2', 'CO₂', 'µmol m⁻² s⁻¹')
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            hc('ts', '/smear/csv/ts', 'Soil temperature', '°C')
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            hc('SO2', '/smear/csv/so', 'SO₂ 15-16m', 'ppb')
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            hc('NOX', '/smear/csv/nox', 'NOx 15-16m', 'ppb')
+        });
+    </script>
+    <link href="/static/css/avaa.css" rel="stylesheet" type="text/css">
+    <script src="/static/js/f.js"></script>
+</head>
+<body>
+<div class="charts">
+    <div class="chartscolumn-1">
+        <ul>
+            <li><span id="F_c_chart"></span></li>
+            <li>
+                <div id="Hiilidioksidi" style="width:450px; height:300px;"></div>
+            </li>
+            <li><span id="E_chart"></span></li>
+            <li>
+                <div id="aerosolsize" style="width:450px; height:300px;"></div>
+            </li>
+            <li><span id="tconc_chart" style="width: 450px; height: 300px"></span></li>
+            <li><span id="ozone_chart"></span></li>
+            <li>
+                <div id="SO2" style="width:450px; height:300px;"></div>
+            </li>
+            <li>
+                <div id="NO" style="width:450px; height:300px;"></div>
+            </li>
+            <li>
+                <div id="NOX" style="width:450px; height:300px;"></div>
+            </li>
+            <li>
+                <div id="Radiation" style="width:450px; height:300px;"></div>
+            </li>
+            <li><span id="temperature_chart"></span></li>
+            <li><span id="airpressure_chart"></span></li>
+            <li><span id="windspeed_chart"></span></li>
+            <li>
+                <div id="windrose" style="width:300px; height:300px;"></div>
+            </li>
+            <li>
+                <div id="Rhumidity" style="width:450px; height:300px;"></div>
+            </li>
+            <div id="ts" style="width:450px; height:300px;"></div>
+        </ul>
+    </div>
+    <div class="textcolumn">
+        <p>SmartSMEAR is data visualization and download tool for the database of continuous atmospheric, flux, soil,
+            tree physiological and water quality measurements at&nbsp;<a href="http://www.atm.helsinki.fi/SMEAR"
+                                                                         style="text-decoration: none;">SMEAR research
+                stations</a>&nbsp;of the University of Helsinki. Air mass back-trajectories are also provided for
+            studying the connection between air mass movements and atmospheric observations at the stationary
+            measurement sites. Detailed information on the measurements is provided at <a
+                    href="https://wiki.helsinki.fi/display/SMEAR/The+SMEAR+Wikispace" style="text-decoration: none;">SMEAR
+                wikispace</a> &nbsp;and the Download page.&nbsp;Users are encouraged to contact the&nbsp;<a
+                    href="https://wiki.helsinki.fi/display/SMEAR/Data+contact+persons"><span
+                    style="color: rgb(0, 0, 0);">original data contributors</span>&nbsp;</a>or<a
+                    href="mailto:atm-data@helsinki.fi">&nbsp;<span
+                    style="color: rgb(0, 0, 0);">atm-data@helsinki.fi</span>&nbsp;</a>&nbsp;for questions or
+            clarifications.</p>
+
+        <p>Terms of use for the data and its usage can be found from the <a href="/web/smart/smear/terms-of-use"
+                                                                            target="_self">terms of use page</a></p>
+    </div>
+</div>

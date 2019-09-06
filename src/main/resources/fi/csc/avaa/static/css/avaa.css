@@ -1,0 +1,92 @@
+/* footer */
+.column-1 {
+    flex: 50%;
+    text-align: center;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.column-2 {
+    flex: 50%;
+    text-align: center;
+}
+.columns-2 {
+  display: flex;
+  background-color: #e6e6e6
+}
+
+/* content */
+.charts { display: flex;
+    margin-left: 3%;
+    margin-right: 3%;
+ }
+.chartscolumn-1 {
+    flex: 80%;
+    /*flex-wrap: wrap;*/
+    /* display: grid;*/
+/*    grid-auto-columns: 50%;*/
+}
+
+ul.graph {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#datepicker1 {
+    width: 500px;
+    margin-bottom: 20px;
+}
+
+.average   { /*ei toiminut???*/
+    margin-top: 20px;
+}
+
+.textcolumn {
+  flex: 20%;
+}
+
+.hc {
+    width: 450px;
+    height: 300px;
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+button.left {
+    margin-left: 7px;
+}
+
+button.right {
+    margin-right: 7px;
+}
+
+.plot {
+    margin-left: 10px;
+    color: white;
+    background-color: green;
+}
+
+.form-control {
+    width: 100px;
+}
+
+.input-group-addon {
+    margin-right: 7px;
+}
+
+/*header*/
+.row {
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-top: 10px;
+}
+
+.nav-link {
+    font-size: large;
+    /*margin-top: 20px;*/
+    margin-right: 10px;
+    margin-bottom: 20px;
+    margin-left: 30px;
+}

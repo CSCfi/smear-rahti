@@ -1,0 +1,151 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+labels:
+  app: newsmear
+  template: newsmear
+message: |-
+  The following service(s) have been created in your project: ${NAME}
+metadata:
+  annotations:
+    description: Application template for smear application
+    iconClass: icon-spring
+    openshift.io/display-name: newsmear
+    openshift.io/long-description: newsmear
+    openshift.io/provider-display-name: CSC
+    tags: newsmear,spring
+    template.openshift.io/bindable: "false"
+  name: newsmear
+objects:
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    labels:
+      app: ${NAME}
+    name: ${NAME}
+
+  spec:
+    replicas: ${REPLICA}
+    selector:
+      app: ${NAME}
+      
+    template:
+      metadata:
+        labels:
+          app: ${NAME}          
+      spec:
+        containers:
+        - name: ${NAME}
+          env:
+          - name: DB_USER
+            value: ${DB_USER}
+          - name: DB_PASSWORD
+            value: ${DB_PASSWORD}
+          - name: DB_NAME
+            value: ${DB_NAME}
+          - name: DB_HOST
+            value: ${DB_HOST}
+          - name: DB_PORT
+            value: ${DB_PORT}             
+          - image: 
+              docker-registry.default.svc:5000/avaa-smear-new-conf/dashboard
+            imagePullPolicy: Always
+            name: ${NAME}
+            ports:
+              - containerPort: 8888
+                protocol: TCP
+        restartPolicy: Always
+    triggers:
+      - type: ConfigChange
+      - imageChangeParams:
+          automatic: true
+          containerNames:
+            - ${NAME}
+          from:
+            kind: ImageStreamTag
+            name: 'dashboard:latest'
+            namespace: ${BUILD_IMAGE_NAMESPACE}
+        type: ImageChange
+        
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+    description: Exposes and load balances the application pods
+    labels:
+      app: ${NAME}
+    name: ${NAME}
+  spec:
+    ports:
+      - name: web
+        port: 8888
+        protocol: TCP
+        targetPort: 8888
+    selector:      
+      app: ${NAME}
+  status:
+    loadBalancer: {}
+    
+- apiVersion: v1
+  kind: Route
+  metadata:
+    annotations:
+    labels:
+      app: ${NAME}
+    name: ${NAME}
+  spec:
+    host: ${APPLICATION_DOMAIN}
+    port:
+      targetPort: web
+    to:
+      kind: Service
+      name: ${NAME}
+
+parameters:
+- description: Username for smear database user that will be used for accessing the database.
+  displayName: Smear Database Connection Username
+  from: user[A-Z0-9]{3}
+  generate: expression
+  name: DB_USER
+  required: true
+- description: Password for the Smear Database user.
+  displayName: Smear Database Connection Password
+  from: '[a-zA-Z0-9]{16}'
+  generate: expression
+  name: DB_PASSWORD
+  required: true
+- description: Name of the Smear database accessed.
+  displayName: Smear Database Name
+  name: DB_NAME
+  required: true
+  value: smear
+- description: The name assigned to all of the smear objects defined in this template.
+  displayName: Name
+  name: NAME
+  required: true
+  value: newsmear
+- description: Name of the Host machine
+  displayName: Host Machine
+  name: DB_HOST
+  required: true
+  value: db5.csc.fi
+- description: Name of the Database port
+  displayName: PORT
+  name: DB_PORT
+  required: true
+  value: '3320'
+- description: Number of Replicas
+  displayName: REPLICA
+  name: REPLICA
+  required: true
+  value: '1'
+- description: The OpenShift Namespace where the build image ImageStream resides.
+  displayName: Build Image Namespace
+  name: BUILD_IMAGE_NAMESPACE
+  required: true
+  value: avaa-smear-new-conf
+- description: The exposed hostname that will route to the Smear service, if left blank a value will be defaulted.
+  displayName: Application Hostname
+  name: APPLICATION_DOMAIN
+  required: true
+  value: avaa-smear-new-conf.rahti-int-app.csc.fi
+  
