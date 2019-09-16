@@ -19,68 +19,52 @@ Open SMEAR
 
 Check graphs
     Page Should Contain Element    id=F_c
-    Page Should Contain Element    id=highcharts-information-region-2
-    Page Should Contain            CO₂ flux
+    Element Should Contain         id=F_c    CO₂ flux
 
     Page Should Contain Element    id=Hiilidioksidi
-    Page Should Contain Element    id=highcharts-information-region-7
-    Page Should Contain            CO₂
+    Element Should Contain         id=Hiilidioksidi    CO₂
 
     Page Should Contain Element    id=E
-    Page Should Contain Element    id=highcharts-information-region-3
-    Page Should Contain            Evapotranspiration
+    Element Should Contain         id=E    Evapotranspiration
 
     Page Should Contain Element    id=aerosolsize
-    Page Should Contain Element    id=highcharts-information-region-1
-    Page Should Contain            Aerosol size distribution
+    Element Should Contain         id=aerosolsize    Aerosol size distribution
 
     Page Should Contain Element    tconc
-    Page Should Contain Element    id=highcharts-information-region-15
-    Page Should Contain            Total aerosol concentration
+    Element Should Contain         id=tconc    Total aerosol concentration
 
     Page Should Contain Element    id=ozone
-    Page Should Contain Element    id=highcharts-information-region-14
-    Page Should Contain            Ozone
+    Element Should Contain         id=ozone    Ozone
 
     Page Should Contain Element    id=SO2
-    Page Should Contain Element    id=highcharts-information-region-9
-    Page Should Contain            SO₂ 15-16m
+    Element Should Contain         id=SO2    SO₂ 15-16m
 
     Page Should Contain Element    id=NO
-    Page Should Contain Element    id=highcharts-information-region-4
-    Page Should Contain            NO 15-16m
+    Element Should Contain         id=NO    NO 15-16m
 
     Page Should Contain Element    id=NOX
-    Page Should Contain Element    id=highcharts-information-region-10
-    Page Should Contain            NOx 15-16m
+    Element Should Contain         id=NOX    NOx 15-16m
 
     Page Should Contain Element    id=Radiation
-    Page Should Contain Element    id=highcharts-information-region-5
-    Page Should Contain            Global radiadiation
+    Element Should Contain         id=Radiation    Global radiadiation
 
     Page Should Contain Element    id=temperature
-    Page Should Contain Element    id=highcharts-information-region-11
-    Page Should Contain            Temperature 15-16m
+    Element Should Contain         id=temperature    Temperature 15-16m
 
     Page Should Contain Element    id=airpressure
-    Page Should Contain Element    id=highcharts-information-region-12
-    Page Should Contain            Air pressure
+    Element Should Contain         id=airpressure    Air pressure
 
     Page Should Contain Element    id=windspeed
-    Page Should Contain Element    id=highcharts-information-region-13
-    Page Should Contain            Windspeed 15-16m
+    Element Should Contain         id=windspeed    Windspeed 15-16m
 
     Page Should Contain Element    id=windrose
-    Page Should Contain Element    id=highcharts-information-region-0
-    Page Should Contain            Wind direction %
+    Element Should Contain         id=windrose    Wind direction %
 
     Page Should Contain Element    id=Rhumidity
-    Page Should Contain Element    id=highcharts-information-region-6
-    Page Should Contain            Relative humidity
+    Element Should Contain         id=Rhumidity    Relative humidity
 
     Page Should Contain Element    id=ts
-    Page Should Contain Element    id=highcharts-information-region-8
-    Page Should Contain            Soil temperature
+    Element Should Contain         id=ts    Soil temperature
 
 Close SMEAR
     Sleep    2s
