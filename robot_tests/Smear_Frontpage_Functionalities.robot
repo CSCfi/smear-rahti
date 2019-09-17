@@ -81,5 +81,38 @@ Change week by left button
     Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}
     Check graphs
 
+### Change date by text input ###
+#By default "To"-field returns previous date.
+#Increment -2 days to get correct date.
+#Select "To"-field and input day before yesterday and check that correct date returns to "To"-field.
+#Date format has to be yyyy-mm-dd.
+Change date by text input
+    ${Y}    Get Current Date    result_format=%Y
+    ${m}    Get Current Date    result_format=%m
+    ${d}    Get Current Date    result_format=%d    increment=-2 day
+    Click Link    Dashboard
+    Click Element    xpath=//*[@id="datepicker1"]/input
+    Sleep    2s
+    Input Text    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}
+    Sleep    2s
+    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}
+    Check graphs
+
+### Change date by using calendar ###
+#By default "To"-field returns previous date.
+#Select calendar and select first date of the month and check that correct date returns to "To"-field.
+#Date format has to be yyyy-mm-dd.
+Change date by using calendar
+    ${Y}    Get Current Date    result_format=%Y
+    ${m}    Get Current Date    result_format=%m
+#    ${d}    Get Current Date    result_format=%d
+    Click Link    Dashboard
+    Click Element    xpath=//*[@id="datepicker1"]/div/span
+    Sleep    2s
+    Click Element    xpath=//td[starts-with(text(),'1')]
+    Sleep    2s
+    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-01
+    Check graphs
+
 Close SMEAR
     Close SMEAR
