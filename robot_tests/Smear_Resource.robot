@@ -10,12 +10,32 @@ ${BROWSER}       Chrome
 #${BROWSER}       Firefox
 
 *** Keywords ***
+### Open and Close ###
 Open SMEAR
     Open Browser    ${URL}    ${BROWSER}
     Maximize Browser Window
     Wait Until Page Contains Element    id=heading           timeout=10
     Wait Until Page Contains Element    id=footer-content    timeout=10
     Title Should Be                     SMEAR dashboard
+
+Close SMEAR
+    Sleep    2s
+    Close Browser
+
+### Check keywords ###
+Check header
+    Page Should Contain Image    /static/images/AVAA.png
+    Page Should Contain Link     https://avaa.tdata.fi/web/avaa/etusivu
+
+Check navigation
+    Page Should Contain Link    etusivu
+    Page Should Contain Link    Dashboard
+    Page Should Contain Link    search.html
+    Page Should Contain Link    Search
+#Others are not developed yet
+
+Check datepicker
+    Page Should Contain Element    id=datepicker1
 
 Check graphs
     Page Should Contain Element    id=F_c
@@ -66,6 +86,13 @@ Check graphs
     Page Should Contain Element    id=ts
     Element Should Contain         id=ts    Soil temperature
 
-Close SMEAR
-    Sleep    2s
-    Close Browser
+Check footer
+    Page Should Contain          Open science and research is an initiative funded by the Ministry of Education and Culture with the target of making Finland one of the leading countries in openness of science and research by the year 2017.
+    Page Should Contain Image    /static/images/okm-logo-en.png
+    Page Should Contain Link     http://okm.fi/OPM/?lang=en
+    Page Should Contain Image    /static/images/ATT_pos_pysty_RGB_EN_transparent.png
+    Page Should Contain Link     http://openscience.fi/
+    Page Should Contain Image    /static/images/csc-logo.png
+    Page Should Contain Link     https://www.csc.fi/en/
+
+### Functionality keywords ###
