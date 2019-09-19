@@ -11,6 +11,8 @@ Open SMEAR
 ### Change time option to week ###
 #Update test when application is fixed.
 Change time option to week
+    Wait Until Page Contains Element    id=datepicker1
+    Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    week
     Sleep    2s
     Check graphs
@@ -18,6 +20,8 @@ Change time option to week
 ### Change time option to day ###
 #Update test when application is fixed.
 Change time option to day
+    Wait Until Page Contains Element    id=datepicker1
+    Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    day
     Sleep    2s
     Check graphs
@@ -26,13 +30,8 @@ Change time option to day
 #By default "To"-field returns previous date.
 #Click right button and check that current date returns to "To"-field.
 Change date by right button
-    ${Y}    Get Current Date    result_format=%Y
-    ${m}    Get Current Date    result_format=%m
-    ${d}    Get Current Date    result_format=%d
     Click Link    Dashboard
-    Click Button    xpath=//*[@id="datepicker1"]/button[2]
-    Sleep    2s
-    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}
+    Select current date
     Check graphs
 
 ### Change date by left button ###
@@ -40,13 +39,8 @@ Change date by right button
 #Increment -2 days to get correct date.
 #Click left button and check that day before yesterday returns to "To"-field.
 Change date by left button
-    ${Y}    Get Current Date    result_format=%Y
-    ${m}    Get Current Date    result_format=%m
-    ${d}    Get Current Date    result_format=%d    increment=-2 day
     Click Link    Dashboard
-    Click Button    xpath=//*[@id="datepicker1"]/button[1]
-    Sleep    2s
-    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}
+    Select day before yesterday
     Check graphs
 
 ### Change week by right button ###
@@ -54,15 +48,8 @@ Change date by left button
 #Increment +6 days to get correct date.
 #Select "Week" and click right button and check that correct date returns to "To"-field.
 Change week by right button
-    ${Y}    Get Current Date    result_format=%Y
-    ${m}    Get Current Date    result_format=%m
-    ${d}    Get Current Date    result_format=%d    increment=+6 day
     Click Link    Dashboard
-    Select From List By Value    id=pituus    week
-    Sleep    2s
-    Click Button    xpath=//*[@id="datepicker1"]/button[2]
-    Sleep    2s
-    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}    
+    Select current week  
     Check graphs
 
 ### Change week by left button ###
@@ -70,15 +57,8 @@ Change week by right button
 #Increment -8 days to get correct date.
 #Select "Week" and click left button and check that correct date returns to "To"-field.
 Change week by left button
-    ${Y}    Get Current Date    result_format=%Y
-    ${m}    Get Current Date    result_format=%m
-    ${d}    Get Current Date    result_format=%d    increment=-8 day
     Click Link    Dashboard
-    Select From List By Value    id=pituus    week
-    Sleep    2s
-    Click Button    xpath=//*[@id="datepicker1"]/button[1]
-    Sleep    2s
-    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}
+    Select previous week
     Check graphs
 
 ### Change date by text input ###
@@ -87,10 +67,12 @@ Change week by left button
 #Select "To"-field and input day before yesterday and check that correct date returns to "To"-field.
 #Date format has to be yyyy-mm-dd.
 Change date by text input
+    Click Link    Dashboard
     ${Y}    Get Current Date    result_format=%Y
     ${m}    Get Current Date    result_format=%m
     ${d}    Get Current Date    result_format=%d    increment=-2 day
-    Click Link    Dashboard
+    Wait Until Page Contains Element    id=datepicker1
+    Wait Until Page Contains Element    id=pituus
     Click Element    xpath=//*[@id="datepicker1"]/input
     Sleep    2s
     Input Text    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}
@@ -103,10 +85,12 @@ Change date by text input
 #Select calendar and select first date of the month and check that correct date returns to "To"-field.
 #Date format has to be yyyy-mm-dd.
 Change date by using calendar
+    Click Link    Dashboard
     ${Y}    Get Current Date    result_format=%Y
     ${m}    Get Current Date    result_format=%m
 #    ${d}    Get Current Date    result_format=%d
-    Click Link    Dashboard
+    Wait Until Page Contains Element    id=datepicker1
+    Wait Until Page Contains Element    id=pituus
     Click Element    xpath=//*[@id="datepicker1"]/div/span
     Sleep    2s
     Click Element    xpath=//td[starts-with(text(),'1')]
