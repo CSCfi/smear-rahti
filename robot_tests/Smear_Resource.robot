@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation    Smear_Resource-file contains variables and keywords for the SMEAR-tests.
+Documentation    Smear_Resource.robot-file contains variables and keywords for the SMEAR-tests.
 Library          SeleniumLibrary
 Library          DateTime
 
@@ -96,3 +96,70 @@ Check footer
     Page Should Contain Link     https://www.csc.fi/en/
 
 ### Functionality keywords ###
+Select current date
+    ${Y}    Get Current Date    result_format=%Y
+    ${m}    Get Current Date    result_format=%m
+    ${d}    Get Current Date    result_format=%d
+    Wait Until Page Contains Element    id=datepicker1
+    Wait Until Page Contains Element    id=pituus
+    Click Button    xpath=//*[@id="datepicker1"]/button[2]
+    Sleep    2s
+    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}
+
+Select day before yesterday
+    ${Y}    Get Current Date    result_format=%Y
+    ${m}    Get Current Date    result_format=%m
+    ${d}    Get Current Date    result_format=%d    increment=-2 day
+    Wait Until Page Contains Element    id=datepicker1
+    Wait Until Page Contains Element    id=pituus
+    Click Button    xpath=//*[@id="datepicker1"]/button[1]
+    Sleep    2s
+    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}
+
+Select current week
+    ${Y}    Get Current Date    result_format=%Y
+    ${m}    Get Current Date    result_format=%m
+    ${d}    Get Current Date    result_format=%d    increment=+6 day
+    Wait Until Page Contains Element    id=datepicker1
+    Wait Until Page Contains Element    id=pituus
+    Select From List By Value    id=pituus    week
+    Sleep    2s
+    Click Button    xpath=//*[@id="datepicker1"]/button[2]
+    Sleep    2s
+    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}  
+
+Select previous week
+    ${Y}    Get Current Date    result_format=%Y
+    ${m}    Get Current Date    result_format=%m
+    ${d}    Get Current Date    result_format=%d    increment=-8 day
+    Wait Until Page Contains Element    id=datepicker1
+    Wait Until Page Contains Element    id=pituus
+    Select From List By Value    id=pituus    week
+    Sleep    2s
+    Click Button    xpath=//*[@id="datepicker1"]/button[1]
+    Sleep    2s
+    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}
+
+Select previous month
+    ${Y}    Get Current Date    result_format=%Y
+    ${m}    Get Current Date    result_format=%m    increment=-31 day
+    ${d}    Get Current Date    result_format=%d    increment=-1 day
+    Wait Until Page Contains Element    id=datepicker1
+    Wait Until Page Contains Element    id=pituus
+    Select From List By Value    id=pituus    month
+    Sleep    2s
+    Click Button    xpath=//*[@id="datepicker1"]/button[1]
+    Sleep    2s
+    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}
+
+Select previous year
+    ${Y}    Get Current Date    result_format=%Y    increment=-365 day
+    ${m}    Get Current Date    result_format=%m
+    ${d}    Get Current Date    result_format=%d    increment=-1 day
+    Wait Until Page Contains Element    id=datepicker1
+    Wait Until Page Contains Element    id=pituus
+    Select From List By Value    id=pituus    year
+    Sleep    2s
+    Click Button    xpath=//*[@id="datepicker1"]/button[1]
+    Sleep    2s
+    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}
