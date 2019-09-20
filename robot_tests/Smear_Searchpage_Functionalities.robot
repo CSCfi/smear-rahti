@@ -1,17 +1,16 @@
 *** Settings ***
-Documentation    Smear_Searchpage_Functionalities.robot.
-Resource         Smear_Resource.robot
+Documentation     Smear_Searchpage_Functionalities.robot tests searches from different stations with different variables using different search options.
+Resource          Smear_Resource.robot
+Default Tags      searchpage
+Suite Setup       Open SMEAR
+Suite Teardown    Close SMEAR
 
 *** Variables ***
 
 *** Test Cases ***
-Open SMEAR
-    Open SMEAR
-
-### Search data from Värriö ###
-#Select Värriö, select Aerosol, select Particle concentration, Click "Plot", check that correct graph appears
-#Fix arrow-signs to readable links when application is fixed.
 Search data from Värriö
+#Select Värriö, Aerosol, Particle concentration, Click "Plot", check that correct graph appears.
+#Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[1]/div/span[contains(text(),'Värriö')]
     Click Element    xpath=//*[@id="tree"]/ul/li[1]/div/a[contains(text(),'►')]
@@ -22,10 +21,9 @@ Search data from Värriö
     Page Should Contain Element    id=id0
     Element Should Contain         id=id0    Particle concentration
 
-### Search data from Värriö - Two variables ###
-#Select Värriö, select Gas, select NO concentration 9 m and O3 concentration 9 m, Click "Plot", check that correct graph appears
+Search data from Värriö - Select two variables
+#Select Värriö, Gas, NO concentration 9 m and O3 concentration 9 m, Click "Plot", check that correct graphs appear.
 #Fix arrow-signs to readable links when application is fixed.
-Search data from Värriö - Two variables
     Click Link    Search
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[1]/div/span[contains(text(),'Värriö')]
     Click Element    xpath=//*[@id="tree"]/ul/li[1]/div/a[contains(text(),'►')]
@@ -39,15 +37,11 @@ Search data from Värriö - Two variables
     Page Should Contain Element    id=id1
     Element Should Contain         id=id1    O3 concentration 9 m
 
-### Search data from Värriö - Change date ###
-#By default "To"-field returns previous date.
-#Increment -2 days to get correct date.
-#Click left button and check that day before yesterday returns to "To"-field.
-#Select Värriö, select Meteorology, select Wind speed 16 m, Click "Plot", check that correct graph appears
-#Fix arrow-signs to readable links when application is fixed.
 Search data from Värriö - Change date
+#Select Värriö, Meteorology, Wind speed 16 m, Click "Plot", check that correct graph appears.
+#Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
-    Select day before yesterday
+    Select previous date
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[1]/div/span[contains(text(),'Värriö')]
     Click Element    xpath=//*[@id="tree"]/ul/li[1]/div/a[contains(text(),'►')]
     Click Element    xpath=//*[@id="tree"]/ul/li[1]/ul/li[3]/div/a[contains(text(),'►')]
@@ -57,15 +51,11 @@ Search data from Värriö - Change date
     Page Should Contain Element    id=id0
     Element Should Contain         id=id0    Wind speed 16 m
 
-### Search data from Värriö - Change date - Select two variables ###
-#By default "To"-field returns previous date.
-#Increment -2 days to get correct date.
-#Click left button and check that day before yesterday returns to "To"-field.
-#Select Värriö, select Radiation, select UVA radiation and UVB radiation, Click "Plot", check that correct graphs appear
-#Fix arrow-signs to readable links when application is fixed.
 Search data from Värriö - Change date - Select two variables
+#Select Värriö, Radiation, UVA radiation and UVB radiation, Click "Plot", check that correct graphs appear.
+#Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
-    Select day before yesterday
+    Select previous date
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[1]/div/span[contains(text(),'Värriö')]
     Click Element    xpath=//*[@id="tree"]/ul/li[1]/div/a[contains(text(),'►')]
     Click Element    xpath=//*[@id="tree"]/ul/li[1]/ul/li[4]/div/a[contains(text(),'►')]
@@ -78,13 +68,9 @@ Search data from Värriö - Change date - Select two variables
     Page Should Contain Element    id=id1
     Element Should Contain         id=id1    UVB radiation
 
-### Search data from Värriö - Change week ###
-#By default "To"-field returns previous date.
-#Increment -8 days to get correct date.
-#Select "Week" and click left button and check that correct date returns to "To"-field.
-#Select Värriö, select Soil, select Soil temperature 10 cm, Click "Plot", check that correct graph appears
-#Fix arrow-signs to readable links when application is fixed.
 Search data from Värriö - Change week
+#Select Värriö, Soil, Soil temperature 10 cm, Click "Plot", check that correct graph appears.
+#Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
     Select previous week
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[1]/div/span[contains(text(),'Värriö')]
@@ -96,13 +82,9 @@ Search data from Värriö - Change week
     Page Should Contain Element    id=id0
     Element Should Contain         id=id0    Soil temperature 10 cm
 
-### Search data from Värriö - Change week - Select two variables ###
-#By default "To"-field returns previous date.
-#Increment -8 days to get correct date.
-#Select "Week" and click left button and check that correct date returns to "To"-field.
-#Select Värriö, select Tree, select H2O in shoot chamber 0 and H2O in shoot chamber 1, Click "Plot", check that correct graph appears
-#Fix arrow-signs to readable links when application is fixed.
 Search data from Värriö - Change week - Select two variables
+#Select Värriö, Tree, H2O in shoot chamber 0 and H2O in shoot chamber 1, Click "Plot", check that correct graphs appear.
+#Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
     Select previous week
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[1]/div/span[contains(text(),'Värriö')]
@@ -117,13 +99,9 @@ Search data from Värriö - Change week - Select two variables
     Page Should Contain Element    id=id1
     Element Should Contain         id=id1    H2O in shoot chamber 1
 
-### Search data from Värriö - Change month ###
-#By default "To"-field returns previous date.
-#Increment -1 month to get correct date.
-#Select "Month" and click left button and check that correct date returns to "To"-field.
-#Select Värriö, select Flux, select CO2 flux, Click "Plot", check that correct graph appears
-#Fix arrow-signs to readable links when application is fixed.
 Search data from Värriö - Change month
+#Select Värriö, Flux, CO2 flux, Click "Plot", check that correct graph appears.
+#Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
     Select previous month
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[1]/div/span[contains(text(),'Värriö')]
@@ -135,13 +113,9 @@ Search data from Värriö - Change month
     Page Should Contain Element    id=id0
     Element Should Contain         id=id0    CO2 flux
 
-### Search data from Värriö - Change year ###
-#By default "To"-field returns previous date.
-#Increment -1 year to get correct date.
-#Select "Year" and click left button and check that correct date returns to "To"-field.
-#Select Värriö, select Flux ancillary data, select Air temperature, Click "Plot", check that correct graph appears
-#Fix arrow-signs to readable links when application is fixed.
 Search data from Värriö - Change year 
+#Select Värriö, Flux ancillary data, Air temperature, Click "Plot", check that correct graph appears.
+#Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
     Select previous year
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[1]/div/span[contains(text(),'Värriö')]
@@ -153,10 +127,9 @@ Search data from Värriö - Change year
     Page Should Contain Element    id=id0
     Element Should Contain         id=id0    Air temperature
 
-### Search data from Värriö - No data ###
-#Select Värriö, select Aerosol, select Pressure, Click "Plot", check that correct graph appears
-#Fix arrow-signs to readable links when application is fixed.
 Search data from Värriö - No data
+#Select Värriö, Aerosol, Pressure, Click "Plot", check that correct graph appears.
+#Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[1]/div/span[contains(text(),'Värriö')]
     Click Element    xpath=//*[@id="tree"]/ul/li[1]/div/a[contains(text(),'►')]
@@ -167,10 +140,9 @@ Search data from Värriö - No data
     Page Should Contain Element    id=id0
     Element Should Not Contain     id=id0    Pressure
 
-### Search data from Hyytiälä ###
-#Select Hyytiälä, select Flux, select Sensible heat storage flux, Click "Plot", check that correct graph appears
-#Fix arrow-signs to readable links when application is fixed.
 Search data from Hyytiälä
+#Select Hyytiälä, Flux, Sensible heat storage flux, Click "Plot", check that correct graph appears.
+#Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[2]/div/span[contains(text(),'Hyytiälä')]
     Click Element    xpath=//*[@id="tree"]/ul/li[2]/div/a[contains(text(),'►')]
@@ -181,10 +153,9 @@ Search data from Hyytiälä
     Page Should Contain Element    id=id0
     Element Should Contain         id=id0    Sensible heat storage flux
 
-### Search data from Kumpula ###
-#Select Kumpula, select Gas, select NO concentration, Click "Plot", check that correct graph appears
-#Fix arrow-signs to readable links when application is fixed.
 Search data from Kumpula
+#Select Kumpula, Gas, NO concentration, Click "Plot", check that correct graph appears.
+#Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[3]/div/span[contains(text(),'Kumpula')]
     Click Element    xpath=//*[@id="tree"]/ul/li[3]/div/a[contains(text(),'►')]
@@ -195,10 +166,9 @@ Search data from Kumpula
     Page Should Contain Element    id=id0
     Element Should Contain         id=id0    NO concentration
 
-### Search data from Puijo ###
-#Select Puijo, select Meteorology, select Matlab time, Click "Plot", check that correct graph appears
-#Fix arrow-signs to readable links when application is fixed.
 Search data from Puijo
+#Select Puijo, Meteorology, Matlab time, Click "Plot", check that correct graph appears.
+#Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[4]/div/span[contains(text(),'Puijo')]
     Click Element    xpath=//*[@id="tree"]/ul/li[4]/div/a[contains(text(),'►')]
@@ -209,10 +179,9 @@ Search data from Puijo
     Page Should Contain Element        id=id0
     Element Should Not Contain         id=id0    Matlab time
 
-### Search data from Erottaja ###
-#Select Erottaja, select Flux, select Sensible heat flux, Click "Plot", check that correct graph appears
-#Fix arrow-signs to readable links when application is fixed.
 Search data from Erottaja
+#Select Erottaja, Flux, Sensible heat flux, Click "Plot", check that correct graph appears.
+#Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[5]/div/span[contains(text(),'Erottaja')]
     Click Element    xpath=//*[@id="tree"]/ul/li[5]/div/a[contains(text(),'►')]
@@ -223,10 +192,9 @@ Search data from Erottaja
     Page Should Contain Element        id=id0
     Element Should Not Contain         id=id0    Sensible heat flux
 
-### Search data from Torni ###
-#Select Torni, select Flux, select Wind speed, Click "Plot", check that correct graph appears
-#Fix arrow-signs to readable links when application is fixed.
 Search data from Torni
+#Select Torni, Flux, Wind speed, Click "Plot", check that correct graph appears.
+#Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[6]/div/span[contains(text(),'Torni')]
     Click Element    xpath=//*[@id="tree"]/ul/li[6]/div/a[contains(text(),'►')]
@@ -237,10 +205,9 @@ Search data from Torni
     Page Should Contain Element    id=id0
     Element Should Contain         id=id0    Wind speed
 
-### Search data from Siikaneva 1 ###
-#Select Siikaneva 1, select Meteorology, select Rainfall, Click "Plot", check that correct graph appears
-#Fix arrow-signs to readable links when application is fixed.
 Search data from Siikaneva 1
+#Select Siikaneva 1, Meteorology, Rainfall, Click "Plot", check that correct graph appears.
+#Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[7]/div/span[contains(text(),'Siikaneva 1')]
     Click Element    xpath=//*[@id="tree"]/ul/li[7]/div/a[contains(text(),'►')]
@@ -251,10 +218,9 @@ Search data from Siikaneva 1
     Page Should Contain Element    id=id0
     Element Should Contain         id=id0    Rainfall
 
-### Search data from Siikaneva 2 ###
-#Select Siikaneva 2, select Radiation, select Net radiation, Click "Plot", check that correct graph appears
-#Fix arrow-signs to readable links when application is fixed.
 Search data from Siikaneva 2
+#Select Siikaneva 2, Radiation, Net radiation, Click "Plot", check that correct graph appears.
+#Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[8]/div/span[contains(text(),'Siikaneva 2')]
     Click Element    xpath=//*[@id="tree"]/ul/li[8]/div/a[contains(text(),'►')]
@@ -265,11 +231,9 @@ Search data from Siikaneva 2
     Page Should Contain Element        id=id0
     Element Should Not Contain         id=id0    Net radiation
 
-### Search data from Kuivajärvi ###
-#Select Kuivajärvi, select Water, select Water temperature 1.0 m, Click "Plot", check that correct graph appears
-#Fix arrow-signs to readable links when application is fixed.
-#No data?
 Search data from Kuivajärvi
+#Select Kuivajärvi, Water, Water temperature 1.0 m, Click "Plot", check that correct graph appears.
+#Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[9]/div/span[contains(text(),'Kuivajärvi')]
     Click Element    xpath=//*[@id="tree"]/ul/li[9]/div/a[contains(text(),'►')]
@@ -280,10 +244,9 @@ Search data from Kuivajärvi
     Page Should Contain Element        id=id0
     Element Should Not Contain         id=id0    Water temperature 1.0 m
 
-### Search data from Dome_C ###
-#Select Dome_C, select Meteorology, select Air temperature, Click "Plot", check that correct graph appears
-#Fix arrow-signs to readable links when application is fixed.
 Search data from Dome_C
+#Select Dome_C, Meteorology, Air temperature, Click "Plot", check that correct graph appears.
+#Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[10]/div/span[contains(text(),'Dome_C')]
     Click Element    xpath=//*[@id="tree"]/ul/li[10]/div/a[contains(text(),'►')]
@@ -293,6 +256,3 @@ Search data from Dome_C
     Sleep    2s
     Page Should Contain Element        id=id0
     Element Should Not Contain         id=id0    Air temperature
-
-Close SMEAR
-    Close SMEAR
