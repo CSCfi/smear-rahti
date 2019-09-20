@@ -1,102 +1,55 @@
 *** Settings ***
-Documentation    Smear_Frontpage_Functionalities.robot.
-Resource         Smear_Resource.robot
+Documentation     Smear_Frontpage_Functionalities.robot tests changing date using day/week option, arrow buttons, date input field and calendar.
+Resource          Smear_Resource.robot
+Default Tags      frontpage
+Suite Setup       Open SMEAR
+Suite Teardown    Close SMEAR
 
 *** Variables ***
 
 *** Test Cases ***
-Open SMEAR
-    Open SMEAR
-
-### Change time option to week ###
-#Update test when application is fixed.
 Change time option to week
+#Update test when application is fixed.
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    week
     Sleep    2s
     Check graphs
 
-### Change time option to day ###
-#Update test when application is fixed.
 Change time option to day
+#Update test when application is fixed.
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    day
     Sleep    2s
     Check graphs
 
-### Change date by right button ###
-#By default "To"-field returns previous date.
-#Click right button and check that current date returns to "To"-field.
 Change date by right button
     Click Link    Dashboard
-    Select current date
+    Select next date
     Check graphs
 
-### Change date by left button ###
-#By default "To"-field returns previous date.
-#Increment -2 days to get correct date.
-#Click left button and check that day before yesterday returns to "To"-field.
 Change date by left button
     Click Link    Dashboard
-    Select day before yesterday
+    Select previous date
     Check graphs
 
-### Change week by right button ###
-#By default "To"-field returns previous date.
-#Increment +6 days to get correct date.
-#Select "Week" and click right button and check that correct date returns to "To"-field.
 Change week by right button
     Click Link    Dashboard
-    Select current week  
+    Select next week
     Check graphs
 
-### Change week by left button ###
-#By default "To"-field returns previous date.
-#Increment -8 days to get correct date.
-#Select "Week" and click left button and check that correct date returns to "To"-field.
 Change week by left button
     Click Link    Dashboard
     Select previous week
     Check graphs
 
-### Change date by text input ###
-#By default "To"-field returns previous date.
-#Increment -2 days to get correct date.
-#Select "To"-field and input day before yesterday and check that correct date returns to "To"-field.
-#Date format has to be yyyy-mm-dd.
 Change date by text input
     Click Link    Dashboard
-    ${Y}    Get Current Date    result_format=%Y
-    ${m}    Get Current Date    result_format=%m
-    ${d}    Get Current Date    result_format=%d    increment=-2 day
-    Wait Until Page Contains Element    id=datepicker1
-    Wait Until Page Contains Element    id=pituus
-    Click Element    xpath=//*[@id="datepicker1"]/input
-    Sleep    2s
-    Input Text    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}
-    Sleep    2s
-    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}
+    Input date
     Check graphs
 
-### Change date by using calendar ###
-#By default "To"-field returns previous date.
-#Select calendar and select first date of the month and check that correct date returns to "To"-field.
-#Date format has to be yyyy-mm-dd.
 Change date by using calendar
     Click Link    Dashboard
-    ${Y}    Get Current Date    result_format=%Y
-    ${m}    Get Current Date    result_format=%m
-#    ${d}    Get Current Date    result_format=%d
-    Wait Until Page Contains Element    id=datepicker1
-    Wait Until Page Contains Element    id=pituus
-    Click Element    xpath=//*[@id="datepicker1"]/div/span
-    Sleep    2s
-    Click Element    xpath=//td[starts-with(text(),'1')]
-    Sleep    2s
-    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-01
+    Select date from calendar
     Check graphs
-
-Close SMEAR
-    Close SMEAR
