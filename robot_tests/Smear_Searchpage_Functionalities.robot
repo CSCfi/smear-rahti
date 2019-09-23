@@ -1,8 +1,8 @@
 *** Settings ***
 Documentation     Smear_Searchpage_Functionalities.robot tests searches from different stations with different variables using different search options.
 Resource          Smear_Resource.robot
-Default Tags      searchpage
-Suite Setup       Open SMEAR
+Default Tags      Searchpage
+Suite Setup       Open SMEAR searchpage
 Suite Teardown    Close SMEAR
 
 *** Variables ***
@@ -37,7 +37,7 @@ Search data from Värriö - Select two variables
     Page Should Contain Element    id=id1
     Element Should Contain         id=id1    O3 concentration 9 m
 
-Search data from Värriö - Change date
+Search data from Värriö - Change date by left button
 #Select Värriö, Meteorology, Wind speed 16 m, Click "Plot", check that correct graph appears.
 #Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
@@ -51,7 +51,7 @@ Search data from Värriö - Change date
     Page Should Contain Element    id=id0
     Element Should Contain         id=id0    Wind speed 16 m
 
-Search data from Värriö - Change date - Select two variables
+Search data from Värriö - Change date by left button - Select two variables
 #Select Värriö, Radiation, UVA radiation and UVB radiation, Click "Plot", check that correct graphs appear.
 #Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
@@ -68,7 +68,7 @@ Search data from Värriö - Change date - Select two variables
     Page Should Contain Element    id=id1
     Element Should Contain         id=id1    UVB radiation
 
-Search data from Värriö - Change week
+Search data from Värriö - Change week by left button
 #Select Värriö, Soil, Soil temperature 10 cm, Click "Plot", check that correct graph appears.
 #Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
@@ -82,7 +82,7 @@ Search data from Värriö - Change week
     Page Should Contain Element    id=id0
     Element Should Contain         id=id0    Soil temperature 10 cm
 
-Search data from Värriö - Change week - Select two variables
+Search data from Värriö - Change week by left button - Select two variables
 #Select Värriö, Tree, H2O in shoot chamber 0 and H2O in shoot chamber 1, Click "Plot", check that correct graphs appear.
 #Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
@@ -99,7 +99,7 @@ Search data from Värriö - Change week - Select two variables
     Page Should Contain Element    id=id1
     Element Should Contain         id=id1    H2O in shoot chamber 1
 
-Search data from Värriö - Change month
+Search data from Värriö - Change month by left button
 #Select Värriö, Flux, CO2 flux, Click "Plot", check that correct graph appears.
 #Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
@@ -113,7 +113,7 @@ Search data from Värriö - Change month
     Page Should Contain Element    id=id0
     Element Should Contain         id=id0    CO2 flux
 
-Search data from Värriö - Change year 
+Search data from Värriö - Change year by left button
 #Select Värriö, Flux ancillary data, Air temperature, Click "Plot", check that correct graph appears.
 #Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
@@ -165,6 +165,34 @@ Search data from Kumpula
     Sleep    2s
     Page Should Contain Element    id=id0
     Element Should Contain         id=id0    NO concentration
+
+Search data from Kumpula - Change date by text input
+#Select Kumpula, Meteorology, Relative humidity, Click "Plot", check that correct graph appears.
+#Fix arrow-signs to readable links when application is fixed.
+    Click Link    Search
+    Input date
+    Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[3]/div/span[contains(text(),'Kumpula')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[3]/div/a[contains(text(),'►')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[3]/ul/li[3]/div/a[contains(text(),'►')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[3]/ul/li[3]/ul/li[3]/div/span[contains(text(),'Relative humidity')]
+    Click Element    xpath=//*[@id="datepicker1"]/button[3]
+    Sleep    2s
+    Page Should Contain Element    id=id0
+    Element Should Contain         id=id0    Relative humidity
+
+Search data from Kumpula - Change date by using calendar
+#Select Kumpula, Meteorology, Snowfall, Click "Plot", check that correct graph appears.
+#Fix arrow-signs to readable links when application is fixed.
+    Click Link    Search
+    Select date from calendar
+    Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[3]/div/span[contains(text(),'Kumpula')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[3]/div/a[contains(text(),'►')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[3]/ul/li[3]/div/a[contains(text(),'►')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[3]/ul/li[3]/ul/li[13]/div/span[contains(text(),'Snowfall')]
+    Click Element    xpath=//*[@id="datepicker1"]/button[3]
+    Sleep    2s
+    Page Should Contain Element    id=id0
+    Element Should Contain         id=id0    Snowfall
 
 Search data from Puijo
 #Select Puijo, Meteorology, Matlab time, Click "Plot", check that correct graph appears.
