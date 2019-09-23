@@ -18,6 +18,15 @@ Open SMEAR
     Wait Until Page Contains Element    id=footer-content    timeout=10
     Title Should Be                     SMEAR dashboard
 
+Open SMEAR searchpage
+    Open Browser    ${URL}    ${BROWSER}
+    Maximize Browser Window
+    Wait Until Page Contains Element    id=heading           timeout=10
+    Wait Until Page Contains Element    id=footer-content    timeout=10
+    Title Should Be                     SMEAR dashboard
+    Click Link         Search
+    Title Should Be    SMEAR search
+
 Close SMEAR
     Sleep    2s
     Close Browser
@@ -134,7 +143,7 @@ Select next week
     Sleep    2s
     Click Button    xpath=//*[@id="datepicker1"]/button[2]
     Sleep    2s
-    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}  
+    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}
 
 Select previous week
 #By default "To"-field returns previous date.
