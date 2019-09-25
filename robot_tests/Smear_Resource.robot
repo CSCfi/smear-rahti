@@ -231,20 +231,6 @@ Input date GivenDate2
     Click Element    xpath=//*[@id="datepicker1"]/input
     Press Keys    None    RETURN
 
-Input date GivenDate3
-#Given date comes from the test variable.
-#Date format has to be yyyy-mm-dd.
-#RETURN has to be pressed in the input field.
-    Wait Until Page Contains Element    id=datepicker1
-    Wait Until Page Contains Element    id=pituus
-    Click Element    xpath=//*[@id="datepicker1"]/input
-    Sleep    2s
-    Input Text    xpath=//*[@id="datepicker1"]/input    ${GivenDate3}
-    Sleep    2s
-    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${GivenDate3}
-    Click Element    xpath=//*[@id="datepicker1"]/input
-    Press Keys    None    RETURN
-
 Select date from calendar
 #By default "To"-field returns previous date.
 #Select calendar and select first date of the month and check that correct date returns to "To"-field.

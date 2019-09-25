@@ -7,8 +7,7 @@ Suite Teardown    Close SMEAR
 
 *** Variables ***
 ${GivenDate1}    2016-01-01
-${GivenDate2}    2017-01-01
-${GivenDate3}    2019-01-01
+${GivenDate2}    2019-01-01
 
 *** Test Cases ***
 Search data from Värriö
@@ -252,12 +251,20 @@ Search data from Siikaneva 1
     Page Should Contain Element    id=id0
     Element Should Contain         id=id0    Rainfall
 
-Search data from Siikaneva 2 - Change date by text input - Given date from 2017
+Search data from Siikaneva 2 - Change year to 2017 by left button
 #Select Siikaneva 2, Radiation, Net radiation, Click "Plot", check that correct graph appears.
 #To get some data from Siikaneva 2 date has to be from the year 2017.
+#Data is not found if date is inputted, data is found if year is changed from option menu
 #Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
-    Input date GivenDate2
+    Wait Until Page Contains Element    id=datepicker1
+    Wait Until Page Contains Element    id=pituus
+    Select From List By Value    id=pituus    year
+    Sleep    2s
+    Click Button    xpath=//*[@id="datepicker1"]/button[1]
+    Sleep    2s
+    Click Button    xpath=//*[@id="datepicker1"]/button[1]
+    Sleep    2s
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[8]/div/span[contains(text(),'Siikaneva 2')]
     Click Element    xpath=//*[@id="tree"]/ul/li[8]/div/a[contains(text(),'►')]
     Click Element    xpath=//*[@id="tree"]/ul/li[8]/ul/li[4]/div/a[contains(text(),'►')]
@@ -286,7 +293,7 @@ Search data from Dome_C - Change date by text input - Given date from 2019
 #To get some data from Dome_C date has to be from the year 2019.
 #Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
-    Input date GivenDate3
+    Input date GivenDate2
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[10]/div/span[contains(text(),'Dome_C')]
     Click Element    xpath=//*[@id="tree"]/ul/li[10]/div/a[contains(text(),'►')]
     Click Element    xpath=//*[@id="tree"]/ul/li[10]/ul/li[1]/div/a[contains(text(),'►')]
