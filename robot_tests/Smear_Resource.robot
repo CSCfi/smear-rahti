@@ -190,6 +190,7 @@ Input date
 #Increment -2 days to get correct date.
 #Select "To"-field and input day before yesterday and check that correct date returns to "To"-field.
 #Date format has to be yyyy-mm-dd.
+#RETURN has to be pressed in the input field.
     ${CurrentDate}    Get Current Date    result_format=%Y-%m-%d
     ${NewDate}        Add Time To Date    ${CurrentDate}    -2 days    result_format=%Y-%m-%d
     Wait Until Page Contains Element    id=datepicker1
@@ -199,6 +200,50 @@ Input date
     Input Text    xpath=//*[@id="datepicker1"]/input    ${NewDate}
     Sleep    2s
     Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${NewDate}
+    Click Element    xpath=//*[@id="datepicker1"]/input
+    Press Keys    None    RETURN
+
+Input date GivenDate1
+#Given date comes from the test variable.
+#Date format has to be yyyy-mm-dd.
+#RETURN has to be pressed in the input field.
+    Wait Until Page Contains Element    id=datepicker1
+    Wait Until Page Contains Element    id=pituus
+    Click Element    xpath=//*[@id="datepicker1"]/input
+    Sleep    2s
+    Input Text    xpath=//*[@id="datepicker1"]/input    ${GivenDate1}
+    Sleep    2s
+    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${GivenDate1}
+    Click Element    xpath=//*[@id="datepicker1"]/input
+    Press Keys    None    RETURN
+
+Input date GivenDate2
+#Given date comes from the test variable.
+#Date format has to be yyyy-mm-dd.
+#RETURN has to be pressed in the input field.
+    Wait Until Page Contains Element    id=datepicker1
+    Wait Until Page Contains Element    id=pituus
+    Click Element    xpath=//*[@id="datepicker1"]/input
+    Sleep    2s
+    Input Text    xpath=//*[@id="datepicker1"]/input    ${GivenDate2}
+    Sleep    2s
+    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${GivenDate2}
+    Click Element    xpath=//*[@id="datepicker1"]/input
+    Press Keys    None    RETURN
+
+Input date GivenDate3
+#Given date comes from the test variable.
+#Date format has to be yyyy-mm-dd.
+#RETURN has to be pressed in the input field.
+    Wait Until Page Contains Element    id=datepicker1
+    Wait Until Page Contains Element    id=pituus
+    Click Element    xpath=//*[@id="datepicker1"]/input
+    Sleep    2s
+    Input Text    xpath=//*[@id="datepicker1"]/input    ${GivenDate3}
+    Sleep    2s
+    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${GivenDate3}
+    Click Element    xpath=//*[@id="datepicker1"]/input
+    Press Keys    None    RETURN
 
 Select date from calendar
 #By default "To"-field returns previous date.

@@ -6,6 +6,9 @@ Suite Setup       Open SMEAR searchpage
 Suite Teardown    Close SMEAR
 
 *** Variables ***
+${GivenDate1}    2016-01-01
+${GivenDate2}    2017-01-01
+${GivenDate3}    2019-01-01
 
 *** Test Cases ***
 Search data from Värriö
@@ -194,10 +197,12 @@ Search data from Kumpula - Change date by using calendar
     Page Should Contain Element    id=id0
     Element Should Contain         id=id0    Snowfall
 
-Search data from Puijo
+Search data from Puijo - Change date by text input - Given date from 2016
 #Select Puijo, Meteorology, Matlab time, Click "Plot", check that correct graph appears.
+#To get some data from Puijo date has to be from the year 2016.
 #Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
+    Input date GivenDate1
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[4]/div/span[contains(text(),'Puijo')]
     Click Element    xpath=//*[@id="tree"]/ul/li[4]/div/a[contains(text(),'►')]
     Click Element    xpath=//*[@id="tree"]/ul/li[4]/ul/li[1]/div/a[contains(text(),'►')]
@@ -205,10 +210,11 @@ Search data from Puijo
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    2s
     Page Should Contain Element        id=id0
-    Element Should Not Contain         id=id0    Matlab time
+    Element Should Contain             id=id0    Matlab time
 
-Search data from Erottaja
+Search data from Erottaja - No data
 #Select Erottaja, Flux, Sensible heat flux, Click "Plot", check that correct graph appears.
+#No data found from Erottaja.
 #Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[5]/div/span[contains(text(),'Erottaja')]
@@ -246,10 +252,12 @@ Search data from Siikaneva 1
     Page Should Contain Element    id=id0
     Element Should Contain         id=id0    Rainfall
 
-Search data from Siikaneva 2
+Search data from Siikaneva 2 - Change date by text input - Given date from 2017
 #Select Siikaneva 2, Radiation, Net radiation, Click "Plot", check that correct graph appears.
+#To get some data from Siikaneva 2 date has to be from the year 2017.
 #Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
+    Input date GivenDate2
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[8]/div/span[contains(text(),'Siikaneva 2')]
     Click Element    xpath=//*[@id="tree"]/ul/li[8]/div/a[contains(text(),'►')]
     Click Element    xpath=//*[@id="tree"]/ul/li[8]/ul/li[4]/div/a[contains(text(),'►')]
@@ -257,10 +265,11 @@ Search data from Siikaneva 2
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    2s
     Page Should Contain Element        id=id0
-    Element Should Not Contain         id=id0    Net radiation
+    Element Should Contain             id=id0    Net radiation
 
-Search data from Kuivajärvi
+Search data from Kuivajärvi - No data
 #Select Kuivajärvi, Water, Water temperature 1.0 m, Click "Plot", check that correct graph appears.
+#There should be data but it's not found. Maybe error in database, logs refer to that.
 #Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[9]/div/span[contains(text(),'Kuivajärvi')]
@@ -272,10 +281,12 @@ Search data from Kuivajärvi
     Page Should Contain Element        id=id0
     Element Should Not Contain         id=id0    Water temperature 1.0 m
 
-Search data from Dome_C
+Search data from Dome_C - Change date by text input - Given date from 2019
 #Select Dome_C, Meteorology, Air temperature, Click "Plot", check that correct graph appears.
+#To get some data from Dome_C date has to be from the year 2019.
 #Fix arrow-signs to readable links when application is fixed.
     Click Link    Search
+    Input date GivenDate3
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[10]/div/span[contains(text(),'Dome_C')]
     Click Element    xpath=//*[@id="tree"]/ul/li[10]/div/a[contains(text(),'►')]
     Click Element    xpath=//*[@id="tree"]/ul/li[10]/ul/li[1]/div/a[contains(text(),'►')]
@@ -283,4 +294,4 @@ Search data from Dome_C
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    2s
     Page Should Contain Element        id=id0
-    Element Should Not Contain         id=id0    Air temperature
+    Element Should Contain             id=id0    Air temperature
