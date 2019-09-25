@@ -108,57 +108,52 @@ Check footer
 Select next date
 #By default "To"-field returns previous date.
 #Click right button and check that current date returns to "To"-field.
-    ${Y}    Get Current Date    result_format=%Y
-    ${m}    Get Current Date    result_format=%m
-    ${d}    Get Current Date    result_format=%d
+    ${CurrentDate}    Get Current Date    result_format=%Y-%m-%d
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Click Button    xpath=//*[@id="datepicker1"]/button[2]
     Sleep    2s
-    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}
+    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${CurrentDate}
 
 Select previous date
 #By default "To"-field returns previous date.
 #Increment -2 days to get correct date.
 #Click left button and check that day before yesterday returns to "To"-field.
-    ${Y}    Get Current Date    result_format=%Y
-    ${m}    Get Current Date    result_format=%m
-    ${d}    Get Current Date    result_format=%d    increment=-2 day
+    ${CurrentDate}    Get Current Date    result_format=%Y-%m-%d
+    ${NewDate}        Add Time To Date    ${CurrentDate}    -2 days    result_format=%Y-%m-%d
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
     Sleep    2s
-    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}
+    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${NewDate}
 
 Select next week
 #By default "To"-field returns previous date.
 #Increment +6 days to get correct date.
 #Select "Week" and click right button and check that correct date returns to "To"-field.
-    ${Y}    Get Current Date    result_format=%Y
-    ${m}    Get Current Date    result_format=%m
-    ${d}    Get Current Date    result_format=%d    increment=+6 day
+    ${CurrentDate}    Get Current Date    result_format=%Y-%m-%d
+    ${NewDate}        Add Time To Date    ${CurrentDate}    6 days    result_format=%Y-%m-%d
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    week
     Sleep    2s
     Click Button    xpath=//*[@id="datepicker1"]/button[2]
     Sleep    2s
-    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}
+    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${NewDate}
 
 Select previous week
 #By default "To"-field returns previous date.
 #Increment -8 days to get correct date.
 #Select "Week" and click left button and check that correct date returns to "To"-field.
-    ${Y}    Get Current Date    result_format=%Y
-    ${m}    Get Current Date    result_format=%m
-    ${d}    Get Current Date    result_format=%d    increment=-8 day
+    ${CurrentDate}    Get Current Date    result_format=%Y-%m-%d
+    ${NewDate}        Add Time To Date    ${CurrentDate}    -8 days    result_format=%Y-%m-%d
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    week
     Sleep    2s
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
     Sleep    2s
-    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}
+    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${NewDate}
 
 Select previous month
 #By default "To"-field returns previous date.
@@ -195,16 +190,15 @@ Input date
 #Increment -2 days to get correct date.
 #Select "To"-field and input day before yesterday and check that correct date returns to "To"-field.
 #Date format has to be yyyy-mm-dd.
-    ${Y}    Get Current Date    result_format=%Y
-    ${m}    Get Current Date    result_format=%m
-    ${d}    Get Current Date    result_format=%d    increment=-2 day
+    ${CurrentDate}    Get Current Date    result_format=%Y-%m-%d
+    ${NewDate}        Add Time To Date    ${CurrentDate}    -2 days    result_format=%Y-%m-%d
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Click Element    xpath=//*[@id="datepicker1"]/input
     Sleep    2s
-    Input Text    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}
+    Input Text    xpath=//*[@id="datepicker1"]/input    ${NewDate}
     Sleep    2s
-    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}
+    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${NewDate}
 
 Select date from calendar
 #By default "To"-field returns previous date.
