@@ -143,17 +143,30 @@ Search data from Hyytiälä
     Wait Until Page Contains Element    id=id0
     Element Should Contain              id=id0    Sensible heat storage flux
 
+Search data from Hyytiälä - Change week by left arrow button - Change day by right arrow button
+#Select Hyytiälä, Flux, Latent heat storage flux, Click "Plot", check that correct graph appears.
+    Click Link    Search
+    Select previous week and next date
+    Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[2]/div/span[contains(text(),'Hyytiälä')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[2]/div/a[contains(text(),'►')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[2]/ul/li[1]/div/a[contains(text(),'►')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[2]/ul/li[1]/ul/li[2]/div/span[contains(text(),'Latent heat storage flux')]
+    Click Element    xpath=//*[@id="datepicker1"]/button[3]
+    Sleep    2s
+    Wait Until Page Contains Element    id=id0
+    Element Should Contain              id=id0    Latent heat storage flux
+
 Search data from Kumpula
-#Select Kumpula, Gas, NO concentration, Click "Plot", check that correct graph appears.
+#Select Kumpula, Gas, CO concentration, Click "Plot", check that correct graph appears.
     Click Link    Search
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[3]/div/span[contains(text(),'Kumpula')]
     Click Element    xpath=//*[@id="tree"]/ul/li[3]/div/a[contains(text(),'►')]
     Click Element    xpath=//*[@id="tree"]/ul/li[3]/ul/li[2]/div/a[contains(text(),'►')]
-    Click Element    xpath=//*[@id="tree"]/ul/li[3]/ul/li[2]/ul/li[2]/div/span[contains(text(),'NO concentration')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[3]/ul/li[2]/ul/li[5]/div/span[contains(text(),'CO concentration')]
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    2s
     Wait Until Page Contains Element    id=id0
-    Element Should Contain              id=id0    NO concentration
+    Element Should Contain              id=id0    CO concentration
 
 Search data from Kumpula - Change date by text input
 #Select Kumpula, Meteorology, Relative humidity, Click "Plot", check that correct graph appears.
