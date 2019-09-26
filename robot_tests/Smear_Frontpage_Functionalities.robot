@@ -9,7 +9,6 @@ Suite Teardown    Close SMEAR
 
 *** Test Cases ***
 Change time option to week
-#Update test when application is fixed.
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    week
@@ -17,29 +16,28 @@ Change time option to week
     Check graphs
 
 Change time option to day
-#Update test when application is fixed.
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    day
     Sleep    2s
     Check graphs
 
-Change date by right button
+Change date by right arrow button
     Click Link    Dashboard
     Select next date
     Check graphs
 
-Change date by left button
+Change date by left arrow button
     Click Link    Dashboard
     Select previous date
     Check graphs
 
-Change week by right button
+Change week by right arrow button
     Click Link    Dashboard
     Select next week
     Check graphs
 
-Change week by left button
+Change week by left arrow button
     Click Link    Dashboard
     Select previous week
     Check graphs
