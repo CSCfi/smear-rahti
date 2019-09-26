@@ -156,6 +156,21 @@ Search data from Hyytiälä - Change week by left arrow button - Change day by r
     Wait Until Page Contains Element    id=id0
     Element Should Contain              id=id0    Latent heat storage flux
 
+Search data from Hyytiälä - Change year by left arrow button - Select quality checked
+#Select Hyytiälä, Radiation, Global radiation 67 m, Click "Plot", check that correct graph appears.
+    Click Link    Search
+    Select previous year
+    Select From List By Value    id=quality    2
+    Sleep    2s
+    Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[2]/div/span[contains(text(),'Hyytiälä')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[2]/div/a[contains(text(),'►')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[2]/ul/li[6]/div/a[contains(text(),'►')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[2]/ul/li[6]/ul/li[1]/div/span[contains(text(),'Global radiation 67 m')]
+    Click Element    xpath=//*[@id="datepicker1"]/button[3]
+    Sleep    5s
+    Wait Until Page Contains Element    id=id0
+    Element Should Contain              id=id0    Global radiation 67 m
+
 Search data from Kumpula
 #Select Kumpula, Gas, CO concentration, Click "Plot", check that correct graph appears.
     Click Link    Search
