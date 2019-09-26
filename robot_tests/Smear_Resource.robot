@@ -41,7 +41,6 @@ Check navigation
     Page Should Contain Link    Dashboard
     Page Should Contain Link    search.html
     Page Should Contain Link    Search
-#Others are not developed yet
 
 Check datepicker
     Page Should Contain Element    id=datepicker1
@@ -107,7 +106,7 @@ Check footer
 ### Functionality keywords ###
 Select next date
 #By default "To"-field returns previous date.
-#Click right button and check that current date returns to "To"-field.
+#Click right arrow button and check that current date returns to "To"-field.
     ${CurrentDate}    Get Current Date    result_format=%Y-%m-%d
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
@@ -118,7 +117,7 @@ Select next date
 Select previous date
 #By default "To"-field returns previous date.
 #Increment -2 days to get correct date.
-#Click left button and check that day before yesterday returns to "To"-field.
+#Click left arrow button and check that day before yesterday returns to "To"-field.
     ${CurrentDate}    Get Current Date    result_format=%Y-%m-%d
     ${NewDate}        Add Time To Date    ${CurrentDate}    -2 days    result_format=%Y-%m-%d
     Wait Until Page Contains Element    id=datepicker1
@@ -130,7 +129,7 @@ Select previous date
 Select next week
 #By default "To"-field returns previous date.
 #Increment +6 days to get correct date.
-#Select "Week" and click right button and check that correct date returns to "To"-field.
+#Select "Week", click right arrow button and check that correct date returns to "To"-field.
     ${CurrentDate}    Get Current Date    result_format=%Y-%m-%d
     ${NewDate}        Add Time To Date    ${CurrentDate}    6 days    result_format=%Y-%m-%d
     Wait Until Page Contains Element    id=datepicker1
@@ -144,7 +143,7 @@ Select next week
 Select previous week
 #By default "To"-field returns previous date.
 #Increment -8 days to get correct date.
-#Select "Week" and click left button and check that correct date returns to "To"-field.
+#Select "Week", click left arrow button and check that correct date returns to "To"-field.
     ${CurrentDate}    Get Current Date    result_format=%Y-%m-%d
     ${NewDate}        Add Time To Date    ${CurrentDate}    -8 days    result_format=%Y-%m-%d
     Wait Until Page Contains Element    id=datepicker1
@@ -157,8 +156,8 @@ Select previous week
 
 Select previous month
 #By default "To"-field returns previous date.
-#Increment -1 month to get correct date.
-#Select "Month" and click left button and check that correct date returns to "To"-field.
+#Increment -1 month and -1 day to get correct date.
+#Select "Month", click left arrow button and check that correct date returns to "To"-field.
     ${Y}    Get Current Date    result_format=%Y
     ${m}    Get Current Date    result_format=%m    increment=-31 day
     ${d}    Get Current Date    result_format=%d    increment=-1 day
@@ -172,8 +171,8 @@ Select previous month
 
 Select previous year
 #By default "To"-field returns previous date.
-#Increment -1 year to get correct date.
-#Select "Year" and click left button and check that correct date returns to "To"-field.
+#Increment -1 year and -1 day to get correct date.
+#Select "Year", click left arrow button and check that correct date returns to "To"-field.
     ${Y}    Get Current Date    result_format=%Y    increment=-365 day
     ${m}    Get Current Date    result_format=%m
     ${d}    Get Current Date    result_format=%d    increment=-1 day
@@ -187,8 +186,7 @@ Select previous year
 
 Input date
 #By default "To"-field returns previous date.
-#Increment -2 days to get correct date.
-#Select "To"-field and input day before yesterday and check that correct date returns to "To"-field.
+#Select "To"-field, input day before yesterday and check that correct date returns to "To"-field.
 #Date format has to be yyyy-mm-dd.
 #RETURN has to be pressed in the input field.
     ${CurrentDate}    Get Current Date    result_format=%Y-%m-%d
@@ -203,37 +201,9 @@ Input date
     Click Element    xpath=//*[@id="datepicker1"]/input
     Press Keys    None    RETURN
 
-Input date GivenDate1
-#Given date comes from the test variable.
-#Date format has to be yyyy-mm-dd.
-#RETURN has to be pressed in the input field.
-    Wait Until Page Contains Element    id=datepicker1
-    Wait Until Page Contains Element    id=pituus
-    Click Element    xpath=//*[@id="datepicker1"]/input
-    Sleep    2s
-    Input Text    xpath=//*[@id="datepicker1"]/input    ${GivenDate1}
-    Sleep    2s
-    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${GivenDate1}
-    Click Element    xpath=//*[@id="datepicker1"]/input
-    Press Keys    None    RETURN
-
-Input date GivenDate2
-#Given date comes from the test variable.
-#Date format has to be yyyy-mm-dd.
-#RETURN has to be pressed in the input field.
-    Wait Until Page Contains Element    id=datepicker1
-    Wait Until Page Contains Element    id=pituus
-    Click Element    xpath=//*[@id="datepicker1"]/input
-    Sleep    2s
-    Input Text    xpath=//*[@id="datepicker1"]/input    ${GivenDate2}
-    Sleep    2s
-    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${GivenDate2}
-    Click Element    xpath=//*[@id="datepicker1"]/input
-    Press Keys    None    RETURN
-
 Select date from calendar
 #By default "To"-field returns previous date.
-#Select calendar and select first date of the month and check that correct date returns to "To"-field.
+#Select calendar, select first date of the month and check that correct date returns to "To"-field.
 #Date format has to be yyyy-mm-dd.
     ${Y}    Get Current Date    result_format=%Y
     ${m}    Get Current Date    result_format=%m
