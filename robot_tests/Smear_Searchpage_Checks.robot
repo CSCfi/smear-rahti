@@ -32,3 +32,11 @@ Check tree structure
 
 Check footer
     Check footer
+
+Check plot
+#Tests that clicking "Plot" doesn't create any graphs when graphs are not selected.
+    Wait Until Page Contains Element    id=graph-list
+    Page Should Not Contain Element     id=id0
+    Click Element    xpath=//*[@id="datepicker1"]/button[3]
+    Wait Until Page Contains Element    id=graph-list
+    Page Should Not Contain Element     id=id0
