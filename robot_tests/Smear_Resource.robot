@@ -104,7 +104,7 @@ Check footer
     Page Should Contain Link     https://www.csc.fi/en/
 
 ### Functionality keywords ###
-Select next date
+Select next day
 #By default "To"-field returns previous date.
 #Click right arrow button and check that current date returns to "To"-field.
     ${CurrentDate}    Get Current Date    result_format=%Y-%m-%d
@@ -114,7 +114,7 @@ Select next date
     Sleep    2s
     Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${CurrentDate}
 
-Select previous date
+Select previous day
 #By default "To"-field returns previous date.
 #Increment -2 days to get correct date.
 #Click left arrow button and check that day before yesterday returns to "To"-field.
@@ -216,7 +216,7 @@ Select date from calendar
     Sleep    2s
     Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-01
 
-Select previous week and next date
+Select previous week and next day
 #By default "To"-field returns previous date.
 #Increment -8 days to get correct date.
 #Select "Week", click left arrow button and check that correct date returns to "To"-field.

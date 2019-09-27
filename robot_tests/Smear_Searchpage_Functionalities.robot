@@ -35,10 +35,10 @@ Search data from Värriö - Select two variables
     Element Should Contain              id=id0    NO concentration 9 m
     Element Should Contain              id=id1    O3 concentration 9 m
 
-Search data from Värriö - Change date by left arrow button
+Search data from Värriö - Change day by left arrow button
 #Select Värriö, Meteorology, Wind speed 16 m, Click "Plot", check that correct graph appears.
     Click Link    Search
-    Select previous date
+    Select previous day
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[1]/div/span[contains(text(),'Värriö')]
     Click Element    xpath=//*[@id="tree"]/ul/li[1]/div/a[contains(text(),'►')]
     Click Element    xpath=//*[@id="tree"]/ul/li[1]/ul/li[3]/div/a[contains(text(),'►')]
@@ -48,10 +48,10 @@ Search data from Värriö - Change date by left arrow button
     Wait Until Page Contains Element    id=id0
     Element Should Contain              id=id0    Wind speed 16 m
 
-Search data from Värriö - Change date by left arrow button - Select two variables
+Search data from Värriö - Change day by left arrow button - Select two variables
 #Select Värriö, Radiation, UVA radiation and UVB radiation, Click "Plot", check that correct graphs appear.
     Click Link    Search
-    Select previous date
+    Select previous day
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[1]/div/span[contains(text(),'Värriö')]
     Click Element    xpath=//*[@id="tree"]/ul/li[1]/div/a[contains(text(),'►')]
     Click Element    xpath=//*[@id="tree"]/ul/li[1]/ul/li[4]/div/a[contains(text(),'►')]
@@ -143,10 +143,10 @@ Search data from Hyytiälä
     Wait Until Page Contains Element    id=id0
     Element Should Contain              id=id0    Sensible heat storage flux
 
-Search data from Hyytiälä - Change week by left arrow button - Change day by right arrow button
+Search data from Hyytiälä - Change week by left arrow button and change day by right arrow button
 #Select Hyytiälä, Flux, Latent heat storage flux, Click "Plot", check that correct graph appears.
     Click Link    Search
-    Select previous week and next date
+    Select previous week and next day
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[2]/div/span[contains(text(),'Hyytiälä')]
     Click Element    xpath=//*[@id="tree"]/ul/li[2]/div/a[contains(text(),'►')]
     Click Element    xpath=//*[@id="tree"]/ul/li[2]/ul/li[1]/div/a[contains(text(),'►')]
