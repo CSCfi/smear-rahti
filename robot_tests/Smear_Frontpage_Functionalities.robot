@@ -22,14 +22,14 @@ Change time option to day
     Sleep    2s
     Check graphs
 
-Change date by right arrow button
+Change day by right arrow button
     Click Link    Dashboard
-    Select next date
+    Select next day
     Check graphs
 
-Change date by left arrow button
+Change day by left arrow button
     Click Link    Dashboard
-    Select previous date
+    Select previous day
     Check graphs
 
 Change week by right arrow button
@@ -40,6 +40,11 @@ Change week by right arrow button
 Change week by left arrow button
     Click Link    Dashboard
     Select previous week
+    Check graphs
+
+Change week by left arrow button and change day by right arrow button
+    Click Link    Dashboard
+    Select previous week and next day
     Check graphs
 
 Change date by text input
