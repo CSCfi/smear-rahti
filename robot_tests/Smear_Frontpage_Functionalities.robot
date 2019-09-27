@@ -12,14 +12,12 @@ Change time option to week
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    week
-    Sleep    2s
     Check graphs
 
 Change time option to day
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    day
-    Sleep    2s
     Check graphs
 
 Change day by right arrow button

@@ -161,7 +161,7 @@ Search data from Hyytiälä - Change year by left arrow button - Select quality 
     Click Link    Search
     Select previous year
     Select From List By Value    id=quality    2
-    Sleep    2s
+#    Sleep    2s
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[2]/div/span[contains(text(),'Hyytiälä')]
     Click Element    xpath=//*[@id="tree"]/ul/li[2]/div/a[contains(text(),'►')]
     Click Element    xpath=//*[@id="tree"]/ul/li[2]/ul/li[6]/div/a[contains(text(),'►')]
@@ -170,6 +170,108 @@ Search data from Hyytiälä - Change year by left arrow button - Select quality 
     Sleep    5s
     Wait Until Page Contains Element    id=id0
     Element Should Contain              id=id0    Global radiation 67 m
+
+Search data from Hyytiälä - Select averaging 30min - Select geometric
+#Select Hyytiälä, Soil, Soil surface temperature (ICOS), Click "Plot", check that correct graph appears.
+    Click Link    Search
+    Select previous day
+    Select From List By Value    id=avg    30min
+#    Sleep    2s
+    Select From List By Value    id=avgtype    1
+#    Sleep    2s
+    Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[2]/div/span[contains(text(),'Hyytiälä')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[2]/div/a[contains(text(),'►')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[2]/ul/li[7]/div/a[contains(text(),'►')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[2]/ul/li[7]/ul/li[1]/div/span[contains(text(),'Soil surface temperature (ICOS)')]
+    Click Element    xpath=//*[@id="datepicker1"]/button[3]
+    Sleep    2s
+    Wait Until Page Contains Element    id=id0
+    Element Should Contain              id=id0    Soil surface temperature (ICOS)
+
+Search data from Hyytiälä - Select averaging 30min - Select arithmetic
+#Select Hyytiälä, Soil, Soil temperature A (ICOS), Click "Plot", check that correct graph appears.
+    Click Link    Search
+    Select previous day
+    Select From List By Value    id=avg    30min
+#    Sleep    2s
+    Select From List By Value    id=avgtype    2
+#    Sleep    2s
+    Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[2]/div/span[contains(text(),'Hyytiälä')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[2]/div/a[contains(text(),'►')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[2]/ul/li[7]/div/a[contains(text(),'►')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[2]/ul/li[7]/ul/li[2]/div/span[contains(text(),'Soil temperature A (ICOS)')]
+    Click Element    xpath=//*[@id="datepicker1"]/button[3]
+    Sleep    2s
+    Wait Until Page Contains Element    id=id0
+    Element Should Contain              id=id0    Soil temperature A (ICOS)
+
+Search data from Hyytiälä - Select averaging 30min - Select sum
+#Select Hyytiälä, Soil, Soil temperature B1 (ICOS), Click "Plot", check that correct graph appears.
+    Click Link    Search
+    Select previous day
+    Select From List By Value    id=avg    30min
+#    Sleep    2s
+    Select From List By Value    id=avgtype    3
+#    Sleep    2s
+    Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[2]/div/span[contains(text(),'Hyytiälä')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[2]/div/a[contains(text(),'►')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[2]/ul/li[7]/div/a[contains(text(),'►')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[2]/ul/li[7]/ul/li[3]/div/span[contains(text(),'Soil temperature B1 (ICOS)')]
+    Click Element    xpath=//*[@id="datepicker1"]/button[3]
+    Sleep    2s
+    Wait Until Page Contains Element    id=id0
+    Element Should Contain              id=id0    Soil temperature B1 (ICOS)
+
+Search data from Hyytiälä - Select averaging 1h - Select median
+#Select Hyytiälä, Soil, Soil temperature B2 (ICOS), Click "Plot", check that correct graph appears.
+    Click Link    Search
+    Select previous day
+    Select From List By Value    id=avg    1h
+#    Sleep    2s
+    Select From List By Value    id=avgtype    4
+#    Sleep    2s
+    Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[2]/div/span[contains(text(),'Hyytiälä')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[2]/div/a[contains(text(),'►')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[2]/ul/li[7]/div/a[contains(text(),'►')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[2]/ul/li[7]/ul/li[4]/div/span[contains(text(),'Soil temperature B2 (ICOS)')]
+    Click Element    xpath=//*[@id="datepicker1"]/button[3]
+    Sleep    2s
+    Wait Until Page Contains Element    id=id0
+    Element Should Contain              id=id0    Soil temperature B2 (ICOS)
+
+Search data from Hyytiälä - Select averaging 1h - Select max
+#Select Hyytiälä, Soil, Soil temperature C (ICOS), Click "Plot", check that correct graph appears.
+    Click Link    Search
+    Select previous day
+    Select From List By Value    id=avg    1h
+#    Sleep    2s
+    Select From List By Value    id=avgtype    5
+#    Sleep    2s
+    Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[2]/div/span[contains(text(),'Hyytiälä')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[2]/div/a[contains(text(),'►')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[2]/ul/li[7]/div/a[contains(text(),'►')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[2]/ul/li[7]/ul/li[5]/div/span[contains(text(),'Soil temperature C (ICOS)')]
+    Click Element    xpath=//*[@id="datepicker1"]/button[3]
+    Sleep    2s
+    Wait Until Page Contains Element    id=id0
+    Element Should Contain              id=id0    Soil temperature C (ICOS)
+
+Search data from Hyytiälä - Select averaging 1h - Select min
+#Select Hyytiälä, Soil, Soil temperature C2 (ICOS), Click "Plot", check that correct graph appears.
+    Click Link    Search
+    Select previous day
+    Select From List By Value    id=avg    1h
+#    Sleep    2s
+    Select From List By Value    id=avgtype    6
+#    Sleep    2s
+    Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[2]/div/span[contains(text(),'Hyytiälä')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[2]/div/a[contains(text(),'►')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[2]/ul/li[7]/div/a[contains(text(),'►')]
+    Click Element    xpath=//*[@id="tree"]/ul/li[2]/ul/li[7]/ul/li[6]/div/span[contains(text(),'Soil temperature C2 (ICOS)')]
+    Click Element    xpath=//*[@id="datepicker1"]/button[3]
+    Sleep    2s
+    Wait Until Page Contains Element    id=id0
+    Element Should Contain              id=id0    Soil temperature C2 (ICOS)
 
 Search data from Kumpula
 #Select Kumpula, Gas, CO concentration, Click "Plot", check that correct graph appears.
@@ -216,13 +318,13 @@ Search data from Puijo - Change year to 2016 by left arrow button
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    year
-    Sleep    2s
+#    Sleep    2s
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
-    Sleep    2s
+#    Sleep    2s
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
-    Sleep    2s
+#    Sleep    2s
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
-    Sleep    2s
+#    Sleep    2s
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[4]/div/span[contains(text(),'Puijo')]
     Click Element    xpath=//*[@id="tree"]/ul/li[4]/div/a[contains(text(),'►')]
     Click Element    xpath=//*[@id="tree"]/ul/li[4]/ul/li[1]/div/a[contains(text(),'►')]
@@ -275,11 +377,11 @@ Search data from Siikaneva 2 - Change year to 2017 by left arrow button
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    year
-    Sleep    2s
+#    Sleep    2s
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
-    Sleep    2s
+#    Sleep    2s
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
-    Sleep    2s
+#    Sleep    2s
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[8]/div/span[contains(text(),'Siikaneva 2')]
     Click Element    xpath=//*[@id="tree"]/ul/li[8]/div/a[contains(text(),'►')]
     Click Element    xpath=//*[@id="tree"]/ul/li[8]/ul/li[4]/div/a[contains(text(),'►')]
@@ -308,9 +410,9 @@ Search data from Dome_C - Change year to 2018 by left arrow button
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    year
-    Sleep    2s
+#    Sleep    2s
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
-    Sleep    2s
+#    Sleep    2s
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[10]/div/span[contains(text(),'Dome_C')]
     Click Element    xpath=//*[@id="tree"]/ul/li[10]/div/a[contains(text(),'►')]
     Click Element    xpath=//*[@id="tree"]/ul/li[10]/ul/li[1]/div/a[contains(text(),'►')]
