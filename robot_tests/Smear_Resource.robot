@@ -136,7 +136,6 @@ Select next week
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    week
-#    Sleep    2s
     Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/button[2]
     Click Button    xpath=//*[@id="datepicker1"]/button[2]
     Sleep    2s
@@ -151,7 +150,6 @@ Select previous week
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    week
-#    Sleep    2s
     Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/button[1]
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
     Sleep    2s
@@ -167,7 +165,6 @@ Select previous month
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    month
-#    Sleep    2s
     Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/button[1]
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
     Sleep    2s
@@ -183,7 +180,6 @@ Select previous year
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    year
-#    Sleep    2s
     Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/button[1]
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
     Sleep    2s
@@ -200,7 +196,6 @@ Input date
     Wait Until Page Contains Element    id=pituus
     Click Element    xpath=//*[@id="datepicker1"]/input
     Input Text    xpath=//*[@id="datepicker1"]/input    ${NewDate}
-#    Sleep    2s
     Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${NewDate}
     Click Element    xpath=//*[@id="datepicker1"]/input
     Press Keys    None    RETURN
@@ -215,9 +210,7 @@ Select date from calendar
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Click Element    xpath=//*[@id="datepicker1"]/div/span
-#    Sleep    2s
     Click Element    xpath=//td[starts-with(text(),'1')]
-#    Sleep    2s
     Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-01
 
 Select previous week and next day
@@ -232,7 +225,6 @@ Select previous week and next day
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    week
-#    Sleep    2s
     Click Element    xpath=//*[@id="datepicker1"]
     Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/button[1]
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
@@ -242,7 +234,6 @@ Select previous week and next day
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    day
-#    Sleep    2s
     Click Element    xpath=//*[@id="datepicker1"]
     Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/button[2]
     Click Button    xpath=//*[@id="datepicker1"]/button[2]
