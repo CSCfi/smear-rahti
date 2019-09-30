@@ -115,7 +115,7 @@ Search data from Värriö - Change year by left arrow button
     Click Element    xpath=//*[@id="tree"]/ul/li[1]/ul/li[8]/div/a[contains(text(),'►')]
     Click Element    xpath=//*[@id="tree"]/ul/li[1]/ul/li[8]/ul/li[10]/div/span[contains(text(),'Air temperature')]
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
-    Sleep    5s
+    Sleep    10s
     Wait Until Page Contains Element    id=id0
     Element Should Contain              id=id0    Air temperature
 
@@ -313,7 +313,7 @@ Search data from Puijo - Change year to 2016 by left arrow button
     Click Element    xpath=//*[@id="tree"]/ul/li[4]/ul/li[1]/div/a[contains(text(),'►')]
     Click Element    xpath=//*[@id="tree"]/ul/li[4]/ul/li[1]/ul/li[1]/div/span[contains(text(),'Matlab time')]
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
-    Sleep    5s
+    Sleep    10s
     Wait Until Page Contains Element    id=id0
     Element Should Contain              id=id0    Matlab time
 
@@ -367,7 +367,7 @@ Search data from Siikaneva 2 - Change year to 2017 by left arrow button
     Click Element    xpath=//*[@id="tree"]/ul/li[8]/ul/li[4]/div/a[contains(text(),'►')]
     Click Element    xpath=//*[@id="tree"]/ul/li[8]/ul/li[4]/ul/li[1]/div/span[contains(text(),'Net radiation')]
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
-    Sleep    5s
+    Sleep    10s
     Wait Until Page Contains Element    id=id0
     Element Should Contain              id=id0    Net radiation
 
@@ -396,6 +396,6 @@ Search data from Dome_C - Change year to 2018 by left arrow button
     Click Element    xpath=//*[@id="tree"]/ul/li[10]/ul/li[1]/div/a[contains(text(),'►')]
     Click Element    xpath=//*[@id="tree"]/ul/li[10]/ul/li[1]/ul/li[1]/div/span[contains(text(),'Air temperature')]
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
-    Sleep    5s
+    Sleep    10s
     Wait Until Page Contains Element    id=id0
     Element Should Contain              id=id0    Air temperature
