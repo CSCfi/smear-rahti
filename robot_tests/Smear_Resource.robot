@@ -194,6 +194,7 @@ Input date
     ${NewDate}        Add Time To Date    ${CurrentDate}    -2 days    result_format=%Y-%m-%d
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
+    Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/input
     Click Element    xpath=//*[@id="datepicker1"]/input
     Input Text    xpath=//*[@id="datepicker1"]/input    ${NewDate}
     Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${NewDate}
@@ -209,6 +210,7 @@ Select date from calendar
 #    ${d}    Get Current Date    result_format=%d
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
+    Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/div/span
     Click Element    xpath=//*[@id="datepicker1"]/div/span
     Click Element    xpath=//td[starts-with(text(),'1')]
     Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-01
