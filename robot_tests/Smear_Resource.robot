@@ -109,6 +109,7 @@ Select next day
     ${CurrentDate}    Get Current Date    result_format=%Y-%m-%d
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
+    Click Element    xpath=//*[@id="datepicker1"]
     Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/button[2]
     Click Button    xpath=//*[@id="datepicker1"]/button[2]
     Sleep    2s
@@ -122,6 +123,7 @@ Select previous day
     ${NewDate}        Add Time To Date    ${CurrentDate}    -2 days    result_format=%Y-%m-%d
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
+    Click Element    xpath=//*[@id="datepicker1"]
     Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/button[1]
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
     Sleep    2s
@@ -136,6 +138,7 @@ Select next week
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    week
+    Click Element    xpath=//*[@id="datepicker1"]
     Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/button[2]
     Click Button    xpath=//*[@id="datepicker1"]/button[2]
     Sleep    2s
@@ -150,6 +153,7 @@ Select previous week
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    week
+    Click Element    xpath=//*[@id="datepicker1"]
     Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/button[1]
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
     Sleep    2s
@@ -165,6 +169,7 @@ Select previous month
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    month
+    Click Element    xpath=//*[@id="datepicker1"]
     Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/button[1]
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
     Sleep    2s
@@ -180,6 +185,7 @@ Select previous year
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    year
+    Click Element    xpath=//*[@id="datepicker1"]
     Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/button[1]
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
     Sleep    2s
