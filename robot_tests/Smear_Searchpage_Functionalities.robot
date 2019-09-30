@@ -18,6 +18,7 @@ Search data from Värriö
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    5s
     Wait Until Page Contains Element    id=id0
+    Wait Until Element Contains         id=id0    Particle concentration
     Element Should Contain              id=id0    Particle concentration
 
 Search data from Värriö - Select two variables
@@ -32,6 +33,8 @@ Search data from Värriö - Select two variables
     Sleep    5s
     Wait Until Page Contains Element    id=id0
     Wait Until Page Contains Element    id=id1
+    Wait Until Element Contains         id=id0    NO concentration 9 m
+    Wait Until Element Contains         id=id1    O3 concentration 9 m
     Element Should Contain              id=id0    NO concentration 9 m
     Element Should Contain              id=id1    O3 concentration 9 m
 
@@ -46,6 +49,7 @@ Search data from Värriö - Change day by left arrow button
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    5s
     Wait Until Page Contains Element    id=id0
+    Wait Until Element Contains         id=id0    Wind speed 16 m
     Element Should Contain              id=id0    Wind speed 16 m
 
 Search data from Värriö - Change day by left arrow button - Select two variables
@@ -61,6 +65,8 @@ Search data from Värriö - Change day by left arrow button - Select two variabl
     Sleep    5s
     Wait Until Page Contains Element    id=id0
     Wait Until Page Contains Element    id=id1
+    Wait Until Element Contains         id=id0    UVA radiation
+    Wait Until Element Contains         id=id1    UVB radiation
     Element Should Contain              id=id0    UVA radiation
     Element Should Contain              id=id1    UVB radiation
 
@@ -75,6 +81,7 @@ Search data from Värriö - Change week by left arrow button
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    5s
     Wait Until Page Contains Element    id=id0
+    Wait Until Element Contains         id=id0    Soil temperature 10 cm
     Element Should Contain              id=id0    Soil temperature 10 cm
 
 Search data from Värriö - Change week by left arrow button - Select two variables
@@ -90,6 +97,8 @@ Search data from Värriö - Change week by left arrow button - Select two variab
     Sleep    5s
     Wait Until Page Contains Element    id=id0
     Wait Until Page Contains Element    id=id1
+    Wait Until Element Contains         id=id0    H2O in shoot chamber 0
+    Wait Until Element Contains         id=id1    H2O in shoot chamber 1
     Element Should Contain              id=id0    H2O in shoot chamber 0
     Element Should Contain              id=id1    H2O in shoot chamber 1
 
@@ -104,6 +113,7 @@ Search data from Värriö - Change month by left arrow button
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    5s
     Wait Until Page Contains Element    id=id0
+    Wait Until Element Contains         id=id0    CO2 flux
     Element Should Contain              id=id0    CO2 flux
 
 Search data from Värriö - Change year by left arrow button
@@ -117,6 +127,7 @@ Search data from Värriö - Change year by left arrow button
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    10s
     Wait Until Page Contains Element    id=id0
+    Wait Until Element Contains         id=id0    Air temperature
     Element Should Contain              id=id0    Air temperature
 
 Search data from Värriö - No data
@@ -129,6 +140,7 @@ Search data from Värriö - No data
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    5s
     Wait Until Page Contains Element    id=id0
+    Wait Until Element Contains         id=id0    Pressure
     Element Should Not Contain          id=id0    Pressure
 
 Search data from Hyytiälä
@@ -141,6 +153,7 @@ Search data from Hyytiälä
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    5s
     Wait Until Page Contains Element    id=id0
+    Wait Until Element Contains         id=id0    Sensible heat storage flux
     Element Should Contain              id=id0    Sensible heat storage flux
 
 Search data from Hyytiälä - Change week by left arrow button and change day by right arrow button
@@ -154,6 +167,7 @@ Search data from Hyytiälä - Change week by left arrow button and change day by
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    5s
     Wait Until Page Contains Element    id=id0
+    Wait Until Element Contains         id=id0    Latent heat storage flux
     Element Should Contain              id=id0    Latent heat storage flux
 
 Search data from Hyytiälä - Change year by left arrow button - Select quality checked
@@ -168,6 +182,7 @@ Search data from Hyytiälä - Change year by left arrow button - Select quality 
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    10s
     Wait Until Page Contains Element    id=id0
+    Wait Until Element Contains         id=id0    Global radiation 67 m
     Element Should Contain              id=id0    Global radiation 67 m
 
 Search data from Hyytiälä - Select averaging 30min - Select geometric
@@ -183,6 +198,7 @@ Search data from Hyytiälä - Select averaging 30min - Select geometric
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    5s
     Wait Until Page Contains Element    id=id0
+    Wait Until Element Contains         id=id0    Soil surface temperature (ICOS)
     Element Should Contain              id=id0    Soil surface temperature (ICOS)
 
 Search data from Hyytiälä - Select averaging 30min - Select arithmetic
@@ -198,6 +214,7 @@ Search data from Hyytiälä - Select averaging 30min - Select arithmetic
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    5s
     Wait Until Page Contains Element    id=id0
+    Wait Until Element Contains         id=id0    Soil temperature A (ICOS)
     Element Should Contain              id=id0    Soil temperature A (ICOS)
 
 Search data from Hyytiälä - Select averaging 30min - Select sum
@@ -213,6 +230,7 @@ Search data from Hyytiälä - Select averaging 30min - Select sum
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    5s
     Wait Until Page Contains Element    id=id0
+    Wait Until Element Contains         id=id0    Soil temperature B1 (ICOS)
     Element Should Contain              id=id0    Soil temperature B1 (ICOS)
 
 Search data from Hyytiälä - Select averaging 1h - Select median
@@ -228,6 +246,7 @@ Search data from Hyytiälä - Select averaging 1h - Select median
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    5s
     Wait Until Page Contains Element    id=id0
+    Wait Until Element Contains         id=id0    Soil temperature B2 (ICOS)
     Element Should Contain              id=id0    Soil temperature B2 (ICOS)
 
 Search data from Hyytiälä - Select averaging 1h - Select max
@@ -243,6 +262,7 @@ Search data from Hyytiälä - Select averaging 1h - Select max
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    5s
     Wait Until Page Contains Element    id=id0
+    Wait Until Element Contains         id=id0    Soil temperature C (ICOS)
     Element Should Contain              id=id0    Soil temperature C (ICOS)
 
 Search data from Hyytiälä - Select averaging 1h - Select min
@@ -258,6 +278,7 @@ Search data from Hyytiälä - Select averaging 1h - Select min
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    5s
     Wait Until Page Contains Element    id=id0
+    Wait Until Element Contains         id=id0    Soil temperature C2 (ICOS)
     Element Should Contain              id=id0    Soil temperature C2 (ICOS)
 
 Search data from Kumpula
@@ -270,6 +291,7 @@ Search data from Kumpula
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    5s
     Wait Until Page Contains Element    id=id0
+    Wait Until Element Contains         id=id0    CO concentration
     Element Should Contain              id=id0    CO concentration
 
 Search data from Kumpula - Change date by text input
@@ -283,6 +305,7 @@ Search data from Kumpula - Change date by text input
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    5s
     Wait Until Page Contains Element    id=id0
+    Wait Until Element Contains         id=id0    Relative humidity
     Element Should Contain              id=id0    Relative humidity
 
 Search data from Kumpula - Change date by using calendar
@@ -296,6 +319,7 @@ Search data from Kumpula - Change date by using calendar
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    5s
     Wait Until Page Contains Element    id=id0
+    Wait Until Element Contains         id=id0    Snowfall
     Element Should Contain              id=id0    Snowfall
 
 Search data from Puijo - Change year to 2016 by left arrow button
@@ -317,6 +341,7 @@ Search data from Puijo - Change year to 2016 by left arrow button
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    10s
     Wait Until Page Contains Element    id=id0
+    Wait Until Element Contains         id=id0    Matlab time
     Element Should Contain              id=id0    Matlab time
 
 Search data from Erottaja - No data
@@ -329,6 +354,7 @@ Search data from Erottaja - No data
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    5s
     Wait Until Page Contains Element    id=id0
+    Wait Until Element Contains         id=id0    Sensible heat flux
     Element Should Not Contain          id=id0    Sensible heat flux
 
 Search data from Torni
@@ -341,6 +367,7 @@ Search data from Torni
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    5s
     Wait Until Page Contains Element    id=id0
+    Wait Until Element Contains         id=id0    Wind speed
     Element Should Contain              id=id0    Wind speed
 
 Search data from Siikaneva 1
@@ -353,6 +380,7 @@ Search data from Siikaneva 1
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    5s
     Wait Until Page Contains Element    id=id0
+    Wait Until Element Contains         id=id0    Rainfall
     Element Should Contain              id=id0    Rainfall
 
 Search data from Siikaneva 2 - Change year to 2017 by left arrow button
@@ -373,6 +401,7 @@ Search data from Siikaneva 2 - Change year to 2017 by left arrow button
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    10s
     Wait Until Page Contains Element    id=id0
+    Wait Until Element Contains         id=id0    Net radiation
     Element Should Contain              id=id0    Net radiation
 
 Search data from Kuivajärvi - No data
@@ -385,6 +414,7 @@ Search data from Kuivajärvi - No data
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    5s
     Wait Until Page Contains Element    id=id0
+    Wait Until Element Contains         id=id0    Water temperature 1.0 m
     Element Should Not Contain          id=id0    Water temperature 1.0 m
 
 Search data from Dome_C - Change year to 2018 by left arrow button
@@ -404,4 +434,5 @@ Search data from Dome_C - Change year to 2018 by left arrow button
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    10s
     Wait Until Page Contains Element    id=id0
+    Wait Until Element Contains         id=id0    Air temperature
     Element Should Contain              id=id0    Air temperature

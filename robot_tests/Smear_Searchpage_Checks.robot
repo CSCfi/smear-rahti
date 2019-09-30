@@ -19,7 +19,7 @@ Check datepicker
 
 Check tree structure
     Wait Until Page Contains Element    id=tree
-    Page Should Contain Element    id=tree
+    Wait Until Element Contains    id=tree    Värriö
     Element Should Contain         id=tree    Värriö
     Element Should Contain         id=tree    Hyytiälä
     Element Should Contain         id=tree    Kumpula
