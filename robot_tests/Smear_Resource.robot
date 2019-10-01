@@ -109,8 +109,8 @@ Select next day
     ${CurrentDate}    Get Current Date    result_format=%Y-%m-%d
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
-    Click Element    xpath=//*[@id="datepicker1"]
     Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/button[2]
+    Wait Until Element Is Visible       xpath=//*[@id="datepicker1"]/button[2]
     Click Button    xpath=//*[@id="datepicker1"]/button[2]
     Sleep    2s
     Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${CurrentDate}
@@ -123,8 +123,8 @@ Select previous day
     ${NewDate}        Add Time To Date    ${CurrentDate}    -2 days    result_format=%Y-%m-%d
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
-    Click Element    xpath=//*[@id="datepicker1"]
     Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/button[1]
+    Wait Until Element Is Visible       xpath=//*[@id="datepicker1"]/button[1]
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
     Sleep    2s
     Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${NewDate}
@@ -138,8 +138,8 @@ Select next week
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    week
-    Click Element    xpath=//*[@id="datepicker1"]
     Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/button[2]
+    Wait Until Element Is Visible       xpath=//*[@id="datepicker1"]/button[2]
     Click Button    xpath=//*[@id="datepicker1"]/button[2]
     Sleep    2s
     Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${NewDate}
@@ -153,11 +153,42 @@ Select previous week
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    week
-    Click Element    xpath=//*[@id="datepicker1"]
     Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/button[1]
+    Wait Until Element Is Visible       xpath=//*[@id="datepicker1"]/button[1]
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
     Sleep    2s
     Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${NewDate}
+
+Select previous week and next day
+#By default "To"-field returns previous date.
+#Increment -8 days to get correct date.
+#Select "Week", click left arrow button and check that correct date returns to "To"-field.
+#Increment 1 day to get correct date.
+#Select "Day", click right arrow button and check that correct date returns to "To"-field.
+#RETURN has to be pressed in the input field.
+    ${CurrentDate}    Get Current Date    result_format=%Y-%m-%d
+    ${NewDate}        Add Time To Date    ${CurrentDate}    -8 days    result_format=%Y-%m-%d
+    Wait Until Page Contains Element    id=datepicker1
+    Wait Until Page Contains Element    id=pituus
+    Select From List By Value    id=pituus    week
+    Click Element    xpath=//*[@id="datepicker1"]
+    Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/button[1]
+    Wait Until Element Is Visible       xpath=//*[@id="datepicker1"]/button[1]
+    Click Button    xpath=//*[@id="datepicker1"]/button[1]
+    Sleep    2s
+    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${NewDate}
+    ${NewNewDate}        Add Time To Date    ${NewDate}    1 day    result_format=%Y-%m-%d
+    Wait Until Page Contains Element    id=datepicker1
+    Wait Until Page Contains Element    id=pituus
+    Select From List By Value    id=pituus    day
+    Click Element    xpath=//*[@id="datepicker1"]
+    Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/button[2]
+    Wait Until Element Is Visible       xpath=//*[@id="datepicker1"]/button[2]
+    Click Button    xpath=//*[@id="datepicker1"]/button[2]
+    Sleep    2s
+    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${NewNewDate}
+    Click Element    xpath=//*[@id="datepicker1"]/input
+    Press Keys    None    RETURN
 
 Select previous month
 #By default "To"-field returns previous date.
@@ -169,8 +200,8 @@ Select previous month
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    month
-    Click Element    xpath=//*[@id="datepicker1"]
     Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/button[1]
+    Wait Until Element Is Visible       xpath=//*[@id="datepicker1"]/button[1]
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
     Sleep    2s
     Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}
@@ -185,8 +216,8 @@ Select previous year
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    year
-    Click Element    xpath=//*[@id="datepicker1"]
     Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/button[1]
+    Wait Until Element Is Visible       xpath=//*[@id="datepicker1"]/button[1]
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
     Sleep    2s
     Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}
@@ -201,6 +232,7 @@ Input date
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/input
+    Wait Until Element Is Visible       xpath=//*[@id="datepicker1"]/input
     Click Element    xpath=//*[@id="datepicker1"]/input
     Input Text    xpath=//*[@id="datepicker1"]/input    ${NewDate}
     Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${NewDate}
@@ -217,35 +249,7 @@ Select date from calendar
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/div/span
+    Wait Until Element Is Visible       xpath=//*[@id="datepicker1"]/div/span
     Click Element    xpath=//*[@id="datepicker1"]/div/span
     Click Element    xpath=//td[starts-with(text(),'1')]
     Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-01
-
-Select previous week and next day
-#By default "To"-field returns previous date.
-#Increment -8 days to get correct date.
-#Select "Week", click left arrow button and check that correct date returns to "To"-field.
-#Increment 1 day to get correct date.
-#Select "Day", click right arrow button and check that correct date returns to "To"-field.
-#RETURN has to be pressed in the input field.
-    ${CurrentDate}    Get Current Date    result_format=%Y-%m-%d
-    ${NewDate}        Add Time To Date    ${CurrentDate}    -8 days    result_format=%Y-%m-%d
-    Wait Until Page Contains Element    id=datepicker1
-    Wait Until Page Contains Element    id=pituus
-    Select From List By Value    id=pituus    week
-    Click Element    xpath=//*[@id="datepicker1"]
-    Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/button[1]
-    Click Button    xpath=//*[@id="datepicker1"]/button[1]
-    Sleep    2s
-    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${NewDate}
-    ${NewNewDate}        Add Time To Date    ${NewDate}    1 day    result_format=%Y-%m-%d
-    Wait Until Page Contains Element    id=datepicker1
-    Wait Until Page Contains Element    id=pituus
-    Select From List By Value    id=pituus    day
-    Click Element    xpath=//*[@id="datepicker1"]
-    Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/button[2]
-    Click Button    xpath=//*[@id="datepicker1"]/button[2]
-    Sleep    2s
-    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${NewNewDate}
-    Click Element    xpath=//*[@id="datepicker1"]/input
-    Press Keys    None    RETURN

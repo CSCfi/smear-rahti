@@ -329,8 +329,8 @@ Search data from Puijo - Change year to 2016 by left arrow button
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    year
-    Click Element    xpath=//*[@id="datepicker1"]
     Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/button[1]
+    Wait Until Element Is Visible       xpath=//*[@id="datepicker1"]/button[1]
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
@@ -390,8 +390,8 @@ Search data from Siikaneva 2 - Change year to 2017 by left arrow button
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    year
-    Click Element    xpath=//*[@id="datepicker1"]
     Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/button[1]
+    Wait Until Element Is Visible       xpath=//*[@id="datepicker1"]/button[1]
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[8]/div/span[contains(text(),'Siikaneva 2')]
@@ -424,8 +424,8 @@ Search data from Dome_C - Change year to 2018 by left arrow button
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    year
-    Click Element    xpath=//*[@id="datepicker1"]
     Wait Until Page Contains Element    xpath=//*[@id="datepicker1"]/button[1]
+    Wait Until Element Is Visible       xpath=//*[@id="datepicker1"]/button[1]
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[10]/div/span[contains(text(),'Dome_C')]
     Click Element    xpath=//*[@id="tree"]/ul/li[10]/div/a[contains(text(),'►')]
