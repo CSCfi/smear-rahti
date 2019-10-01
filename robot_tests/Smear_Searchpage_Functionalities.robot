@@ -140,7 +140,6 @@ Search data from Värriö - No data
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    5s
     Wait Until Page Contains Element    id=id0
-    Wait Until Element Contains         id=id0    Pressure
     Element Should Not Contain          id=id0    Pressure
 
 Search data from Hyytiälä
@@ -354,7 +353,6 @@ Search data from Erottaja - No data
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    5s
     Wait Until Page Contains Element    id=id0
-    Wait Until Element Contains         id=id0    Sensible heat flux
     Element Should Not Contain          id=id0    Sensible heat flux
 
 Search data from Torni
@@ -414,7 +412,6 @@ Search data from Kuivajärvi - No data
     Click Element    xpath=//*[@id="datepicker1"]/button[3]
     Sleep    5s
     Wait Until Page Contains Element    id=id0
-    Wait Until Element Contains         id=id0    Water temperature 1.0 m
     Element Should Not Contain          id=id0    Water temperature 1.0 m
 
 Search data from Dome_C - Change year to 2018 by left arrow button
