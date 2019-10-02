@@ -192,11 +192,10 @@ Select previous week and next day
 
 Select previous month
 #By default "To"-field returns previous date.
-#Increment -1 month and -1 day to get correct date.
+#Increment -32 days to get correct date.
 #Select "Month", click left arrow button and check that correct date returns to "To"-field.
-    ${Y}    Get Current Date    result_format=%Y
-    ${m}    Get Current Date    result_format=%m    increment=-31 day
-    ${d}    Get Current Date    result_format=%d    increment=-1 day
+    ${CurrentDate}    Get Current Date    result_format=%Y-%m-%d
+    ${NewDate}        Add Time To Date    ${CurrentDate}    -32 days    result_format=%Y-%m-%d
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    month
@@ -204,15 +203,14 @@ Select previous month
     Wait Until Element Is Visible       xpath=//*[@id="datepicker1"]/button[1]
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
     Sleep    2s
-    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}
+    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${NewDate}
 
 Select previous year
 #By default "To"-field returns previous date.
-#Increment -1 year and -1 day to get correct date.
+#Increment -366 days to get correct date.
 #Select "Year", click left arrow button and check that correct date returns to "To"-field.
-    ${Y}    Get Current Date    result_format=%Y    increment=-365 day
-    ${m}    Get Current Date    result_format=%m
-    ${d}    Get Current Date    result_format=%d    increment=-1 day
+    ${CurrentDate}    Get Current Date    result_format=%Y-%m-%d
+    ${NewDate}        Add Time To Date    ${CurrentDate}    -366 days    result_format=%Y-%m-%d
     Wait Until Page Contains Element    id=datepicker1
     Wait Until Page Contains Element    id=pituus
     Select From List By Value    id=pituus    year
@@ -220,7 +218,7 @@ Select previous year
     Wait Until Element Is Visible       xpath=//*[@id="datepicker1"]/button[1]
     Click Button    xpath=//*[@id="datepicker1"]/button[1]
     Sleep    2s
-    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${Y}-${m}-${d}
+    Textfield Should Contain    xpath=//*[@id="datepicker1"]/input    ${NewDate}
 
 Input date
 #By default "To"-field returns previous date.
