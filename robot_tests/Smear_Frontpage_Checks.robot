@@ -9,6 +9,7 @@ Suite Teardown    Close SMEAR
 
 *** Test Cases ***
 Check header
+    [Tags]    Smoke
     Check header
 
 Check navigation
@@ -47,4 +48,5 @@ Check side-text
 #    Check side-map
 
 Check footer
+    [Tags]    Smoke
     Check footer
