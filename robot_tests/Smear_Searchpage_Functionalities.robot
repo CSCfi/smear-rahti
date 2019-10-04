@@ -54,6 +54,7 @@ Search data from Värriö - Change day by left arrow button
 
 Search data from Värriö - Change day by left arrow button - Select two variables
 #Select Värriö, Radiation, UVA radiation and UVB radiation, Click "Plot", check that correct graphs appear.
+    [Tags]    Smoke
     Click Link    Search
     Select previous day
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[1]/div/span[contains(text(),'Värriö')]

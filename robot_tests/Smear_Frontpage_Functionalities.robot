@@ -36,6 +36,7 @@ Change week by right arrow button
     Check graphs
 
 Change week by left arrow button
+    [Tags]    Smoke
     Click Link    Dashboard
     Select previous week
     Check graphs
