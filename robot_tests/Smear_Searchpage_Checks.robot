@@ -9,7 +9,6 @@ Suite Teardown    Close SMEAR
 
 *** Test Cases ***
 Check header
-    [Tags]    Smoke
     Check header
 
 Check navigation
@@ -19,6 +18,7 @@ Check datepicker
     Check datepicker
 
 Check tree structure
+    [Tags]    Smoke
     Wait Until Page Contains Element    id=tree
     Wait Until Element Contains    id=tree    Värriö
     Element Should Contain         id=tree    Värriö
@@ -33,7 +33,6 @@ Check tree structure
     Element Should Contain         id=tree    Dome_C
 
 Check footer
-    [Tags]    Smoke
     Check footer
 
 Check plot
