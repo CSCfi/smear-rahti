@@ -5,8 +5,8 @@ Library          DateTime
 
 *** Variables ***
 ${URL}           http://avaa-smear-test.rahtiapp.fi/smear/etusivu
-#${BROWSER}       Chrome
-${BROWSER}       headlesschrome
+${BROWSER}       Chrome
+#${BROWSER}       headlesschrome
 #${BROWSER}       Firefox
 
 *** Keywords ***
