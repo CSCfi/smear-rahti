@@ -1,20 +1,17 @@
 *** Settings ***
 Documentation    Smear_Resource.robot-file contains libraries, variables and keywords for the SMEAR-tests.
 Library          SeleniumLibrary
-Library          XvfbRobot
 Library          DateTime
 
 *** Variables ***
 ${URL}           http://avaa-smear-test.rahtiapp.fi/smear/etusivu
-#${BROWSER}       Chrome
-${BROWSER}       headlesschrome
+${BROWSER}       Chrome
+#${BROWSER}       headlesschrome
 #${BROWSER}       Firefox
 
 *** Keywords ***
 ### Open and Close ###
 Open SMEAR
-    Start Virtual Display    1920    1080
-    Open Chrome Browser
     Open Browser    ${URL}    ${BROWSER}
     Maximize Browser Window
     Wait Until Page Contains Element    id=heading           timeout=10
@@ -29,14 +26,6 @@ Open SMEAR searchpage
     Title Should Be                     SMEAR dashboard
     Click Link         Search
     Title Should Be    SMEAR search
-
-Open Chrome Browser
-    ${chrome_options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
-    Call Method    ${chrome_options}    add_argument    --disable-extensions
-    Call Method    ${chrome_options}    add_argument    --headless
-    Call Method    ${chrome_options}    add_argument    --disable-gpu
-    Call Method    ${chrome_options}    add_argument    --no-sandbox
-    Create Webdriver    Chrome    chrome_options=${chrome_options}
 
 Close SMEAR
     Close Browser
