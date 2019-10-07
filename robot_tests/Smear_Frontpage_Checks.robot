@@ -19,6 +19,7 @@ Check datepicker
     Check datepicker
 
 Check graphs
+    [Tags]    Smoke
     Check graphs
 
 Check side-text
