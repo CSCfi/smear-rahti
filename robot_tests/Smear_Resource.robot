@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation    Smear_Resource.robot-file contains libraries, variables and keywords for the SMEAR-tests.
 Library          SeleniumLibrary
+Library          XvfbRobot
 Library          DateTime
 
 *** Variables ***
@@ -12,13 +13,8 @@ ${BROWSER}       headlesschrome
 *** Keywords ***
 ### Open and Close ###
 Open SMEAR
-    ${chrome_options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
-    Call Method    ${chrome_options}    add_argument    --disable-extensions
-    Call Method    ${chrome_options}    add_argument    --headless
-    Call Method    ${chrome_options}    add_argument    --disable-gpu
-    Call Method    ${chrome_options}    add_argument    --no-sandbox
-    Create Webdriver    Chrome    chrome_options=${chrome_options}
-    set window size  1920  1080
+    Start Virtual Display    1920    1080
+    Open Chrome Browser
     Open Browser    ${URL}    ${BROWSER}
     Maximize Browser Window
     Wait Until Page Contains Element    id=heading           timeout=10
@@ -33,6 +29,14 @@ Open SMEAR searchpage
     Title Should Be                     SMEAR dashboard
     Click Link         Search
     Title Should Be    SMEAR search
+
+Open Chrome Browser
+    ${chrome_options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
+    Call Method    ${chrome_options}    add_argument    --disable-extensions
+    Call Method    ${chrome_options}    add_argument    --headless
+    Call Method    ${chrome_options}    add_argument    --disable-gpu
+    Call Method    ${chrome_options}    add_argument    --no-sandbox
+    Create Webdriver    Chrome    chrome_options=${chrome_options}
 
 Close SMEAR
     Close Browser
