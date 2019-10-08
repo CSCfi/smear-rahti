@@ -7,3 +7,7 @@ branches:
 cache:
   directories:
   - $HOME/.m2
+
+notifications:
+  flowdock:
+    secure: ec3be505858baa12f4620372a13567ff
