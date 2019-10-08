@@ -148,7 +148,7 @@ public class ParameterParser {
                 return "SII";
             case "kuivajärvi":
             case "kuivajarvi":
-                return "KJV_";
+                return "KVJ_";
             case "dome":
                 return "DOME_";
         }
