@@ -23,7 +23,7 @@ Open SMEAR Frontpage
     Title Should Be                     SMEAR dashboard
 
 Open SMEAR Frontpage headlesschrome
-    ${chrome_options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys
+    ${chrome_options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
 #    Call Method    ${chrome_options}    add_argument    test-type
 #    Call Method    ${chrome_options}    add_argument    --no-sandbox
     Call Method    ${chrome_options}    add_argument    --headless
