@@ -2,7 +2,7 @@
 Documentation     Smear_Searchpage_Functionalities.robot tests searches from different stations with different variables using different search options.
 Resource          Smear_Resource.robot
 Default Tags      Searchpage
-Suite Setup       Open SMEAR searchpage
+Suite Setup       Open SMEAR
 Suite Teardown    Close SMEAR
 
 *** Variables ***
