@@ -11,30 +11,27 @@ ${BROWSER}       Chrome
 
 *** Keywords ***
 ### Open and Close ###
-#Open SMEAR
-#    Run Keyword If    '${BROWSER}' == 'HeadlessChrome'    Open SMEAR Frontpage headlesschrome
-#    ...    ELSE       Open SMEAR Frontpage
-
 Open SMEAR
+    Run Keyword If    '${BROWSER}' == 'HeadlessChrome'    Open SMEAR Frontpage headlesschrome
+    ...    ELSE       Open SMEAR Frontpage
+
+Open SMEAR Frontpage
     Open Browser    ${URL}    ${BROWSER}
     Maximize Browser Window
     Wait Until Page Contains Element    id=heading           timeout=10
     Wait Until Page Contains Element    id=footer-content    timeout=10
     Title Should Be                     SMEAR dashboard
 
-#Open SMEAR Frontpage headlesschrome
-#    ${chrome_options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
-#    Call Method    ${chrome_options}    add_argument    --no-sandbox
-#    Call Method    ${chrome_options}    add_argument    --headless
-#    Call Method    ${chrome_options}    add_argument    --disable-extensions
-#    Call Method    ${chrome_options}    add_argument    --disable-gpu
-#    Create Webdriver    Chrome    chrome_options=${chrome_options}
-#    Set Window Size    1920    1080
-#    Open Browser    ${URL}    ${BROWSER}
-#    Maximize Browser Window
-#    Wait Until Page Contains Element    id=heading           timeout=10
-#    Wait Until Page Contains Element    id=footer-content    timeout=10
-#    Title Should Be                     SMEAR dashboard
+Open SMEAR Frontpage headlesschrome
+    ${options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
+    Call Method    ${options}    add_argument    --headless
+    Create Webdriver    Chrome    chrome_options=${options}
+    Set Window Size    1920    1080
+    Open Browser    ${URL}    ${BROWSER}
+    Maximize Browser Window
+    Wait Until Page Contains Element    id=heading           timeout=10
+    Wait Until Page Contains Element    id=footer-content    timeout=10
+    Title Should Be                     SMEAR dashboard
 
 Open SMEAR searchpage
     Open Browser    ${URL}    ${BROWSER}
