@@ -33,15 +33,6 @@ Open SMEAR Frontpage headlesschrome
     Wait Until Page Contains Element    id=footer-content    timeout=10
     Title Should Be                     SMEAR dashboard
 
-Open SMEAR searchpage
-    Open Browser    ${URL}    ${BROWSER}
-    Maximize Browser Window
-    Wait Until Page Contains Element    id=heading           timeout=10
-    Wait Until Page Contains Element    id=footer-content    timeout=10
-    Title Should Be                     SMEAR dashboard
-    Click Link         Search
-    Title Should Be    SMEAR search
-
 Close SMEAR
     Close Browser
 
@@ -88,7 +79,7 @@ Check graphs
     Element Should Contain         id=NOX    NOx 15-16m
 
     Page Should Contain Element    id=Radiation
-    Element Should Contain         id=Radiation    Global radiadiation
+    Element Should Contain         id=Radiation    Global radiation
 
     Page Should Contain Element    id=temperature
     Element Should Contain         id=temperature    Temperature 15-16m
