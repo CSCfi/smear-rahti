@@ -1,0 +1,12 @@
+language: java
+jdk:
+  - openjdk11
+branches:
+  only:
+  - dev
+cache:
+  directories:
+  - $HOME/.m2
+notifications:
+  flowdock:
+    secure: R9t0uowq+5bjujQJf9cp77FvA3MgoP2YqgznHv3IYDl+f+JYIng2n8Ip5FiPLoPtFNG5MV5WIlbYjauh4k44A6v++S/VcVQcEnHaVxKt93m1pSs3pCH4wjIx0Iix3pP1nlbJaJuFgpSvdVKgWHqSP/9jwpJCihCF0Ve44zwLRDrH1a5QOBlJXPQJW1S6Xtz2F3lylNg3ixb2wr0el3Jg+IHbd3LJuX+p1z78+TVAotOWLQhmiIrWHohx0OEbDFx2ZcHII2gOH6T//IOD2UpLQ5NMqJGHaigBONQBj5hXKEZrLnLBGlMkP5ibop1iD6EE9vcb23CwQYP24whV4R2KDCjv/ctBvwh9y9SE1Yit4iZjkNBiIH7PsQUxO+ytrdd6Kr02dbWEAZpi+HQ18tZl2ufeSQ5oVghGMg8hXvNDDrSUNyeSiE2oLnJ2ONvNIurnlmexr5Lga/+Thum+gqh9hhr1Vxgu3y1PvdCI2PPw0MW18WjhdKdqsWOl+yR6aa0J9sqarpBkxeyciM0Psc381VgsRz9K2pFIPg9fv5l1h9BIIfNJHmX++v1PTnLKVF2DlNshvCmvcdx3WNDl1/k+WtscZ2N590DGpjv50K1jVHv2gSblJgZXQZwMaPpZJMUYlxBf8NQsioMiVf7dUGWSnSjBAd9qxarRQyz2LRN6UKY=
