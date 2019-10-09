@@ -21,7 +21,8 @@ Check datepicker
 
 Check tree structure
     [Tags]    Smoke
-    Wait Until Page Contains Element    id=tree
+    Wait Until Page Contains Element    id=tree    timeout=10
+    Wait Until Element Is Visible       id=tree
     Wait Until Element Contains    id=tree    Värriö
     Element Should Contain         id=tree    Värriö
     Element Should Contain         id=tree    Hyytiälä
