@@ -21,6 +21,7 @@ Check datepicker
 
 Check tree structure
     [Tags]    Smoke
+    Click Link         Search
     Wait Until Page Contains Element    id=tree
     Wait Until Element Contains    id=tree    Värriö
     Element Should Contain         id=tree    Värriö
