@@ -147,5 +147,4 @@ parameters:
   displayName: Application Hostname
   name: APPLICATION_DOMAIN
   required: true
-  value: avaa-smear-new-conf.rahti-int-app.csc.fi
-  
+  value: avaa-smear-test.rahtiapp.fi
