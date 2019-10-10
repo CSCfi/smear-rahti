@@ -8,7 +8,8 @@ Suite Teardown    Close SMEAR
 *** Variables ***
 
 *** Test Cases ***
-Check header
+Check header searchpage
+    [Tags]    Smoke
     Click Link         Search
     Title Should Be    SMEAR search
     Check header
@@ -35,7 +36,7 @@ Check tree structure
     Element Should Contain         id=tree    Kuivajärvi
     Element Should Contain         id=tree    Dome_C
 
-Check footer
+Check footer searchpage
     Check footer
 
 Check plot

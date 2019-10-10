@@ -373,6 +373,7 @@ Search data from Kumpula - Change date by text input
 
 Search data from Kumpula - Change date by using calendar
 #Select Kumpula, Meteorology, Snowfall, Click "Plot", check that correct graph appears.
+    [Tags]    Smoke
     Click Link    Search
     Select date from calendar
     Wait Until Page Contains Element    xpath=//*[@id="tree"]/ul/li[3]/div/span[contains(text(),'Kumpula')]
