@@ -8,7 +8,7 @@ Suite Teardown    Close SMEAR
 *** Variables ***
 
 *** Test Cases ***
-Check header
+Check header frontpage
     [Tags]    Smoke
     Check header
 
@@ -48,6 +48,6 @@ Check side-text
 #Check side-map
 #    Check side-map
 
-Check footer
+Check footer frontpage
     [Tags]    Smoke
     Check footer
