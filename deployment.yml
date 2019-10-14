@@ -1,21 +1,47 @@
 apiVersion: template.openshift.io/v1
 kind: Template
 labels:
-  app: newsmear
-  template: newsmear
+  app: dashboard
+  template: dashboard
 message: |-
   The following service(s) have been created in your project: ${NAME}
 metadata:
   annotations:
     description: Application template for smear application
     iconClass: icon-spring
-    openshift.io/display-name: newsmear
-    openshift.io/long-description: newsmear
+    openshift.io/display-name: dashboard
+    openshift.io/long-description: dashboard
     openshift.io/provider-display-name: CSC
-    tags: newsmear,spring
+    tags: dashboard,spring
     template.openshift.io/bindable: "false"
-  name: newsmear
+  name: dashboard
 objects:
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    name: ${NAME}
+  spec:
+    source:
+      git:
+        uri: ${SOURCE_REPOSITORY_URL}
+        ref: dev
+      contextDir: .
+    strategy:
+      dockerStrategy:
+        dockerfilePath: openshift/smear.Dockerfile
+    output:
+      to:
+        kind: ImageStreamTag
+        name: ${NAME}:latest
+        namespace: ${BUILD_IMAGE_NAMESPACE}
+    postCommit: {}
+    resources: {}
+    runPolicy: Serial
+    triggers:
+    - type: ConfigChange
+    - type: ImageChange
+      imageChange: {}
+
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
@@ -31,7 +57,7 @@ objects:
     template:
       metadata:
         labels:
-          app: ${NAME}          
+          app: ${NAME}
       spec:
         containers:
         - name: ${NAME}
@@ -45,9 +71,8 @@ objects:
           - name: DB_HOST
             value: ${DB_HOST}
           - name: DB_PORT
-            value: ${DB_PORT}             
-          - image: 
-              docker-registry.default.svc:5000/avaa-smear-new-conf/dashboard
+            value: ${DB_PORT}
+          - image: ''
             imagePullPolicy: Always
             name: ${NAME}
             ports:
@@ -62,10 +87,10 @@ objects:
             - ${NAME}
           from:
             kind: ImageStreamTag
-            name: 'dashboard:latest'
+            name: ${NAME}:latest
             namespace: ${BUILD_IMAGE_NAMESPACE}
         type: ImageChange
-        
+
 - apiVersion: v1
   kind: Service
   metadata:
@@ -99,6 +124,12 @@ objects:
     to:
       kind: Service
       name: ${NAME}
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      description: Keeps track of changes in the application image
+    name: ${NAME}
 
 parameters:
 - description: Username for smear database user that will be used for accessing the database.
@@ -122,7 +153,7 @@ parameters:
   displayName: Name
   name: NAME
   required: true
-  value: newsmear
+  value: dashboard
 - description: Name of the Host machine
   displayName: Host Machine
   name: DB_HOST
@@ -148,3 +179,8 @@ parameters:
   name: APPLICATION_DOMAIN
   required: true
   value: avaa-smear-test.rahtiapp.fi
+- description: The URL of the repository with your application source code.
+  displayName: Git Repository URL
+  name: SOURCE_REPOSITORY_URL
+  required: true
+  value: https://github.com/CSCfi/smear-rahti
