@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Smear_Frontpage_Checks.robot tests that header, navigation, datepicker, graphs, side-text, side-map and footer are loaded on the frontpage.
+Documentation     Smear_Frontpage_Checks tests that header, navigation, datepicker, graphs, side-text, side-map and footer are loaded on the frontpage.
 Resource          ../resources/Smear_Resource.robot
 Force Tags        Frontpage
 Suite Setup       Open SMEAR
