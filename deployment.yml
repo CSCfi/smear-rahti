@@ -31,7 +31,7 @@ objects:
     template:
       metadata:
         labels:
-          app: ${NAME}          
+          app: ${NAME}
       spec:
         containers:
         - name: ${NAME}
@@ -45,7 +45,7 @@ objects:
           - name: DB_HOST
             value: ${DB_HOST}
           - name: DB_PORT
-            value: ${DB_PORT}             
+            value: ${DB_PORT}
           - image: 
               docker-registry.default.svc:5000/avaa-smear-new-conf/dashboard
             imagePullPolicy: Always
@@ -80,7 +80,7 @@ objects:
         port: 8888
         protocol: TCP
         targetPort: 8888
-    selector:      
+    selector:
       app: ${NAME}
   status:
     loadBalancer: {}
