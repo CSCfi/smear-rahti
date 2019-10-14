@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation    Smear_Resource.robot-file contains libraries, variables and keywords for the SMEAR-tests.
+Documentation    Smear_Resource contains libraries, variables and keywords for the SMEAR-tests.
 Library          SeleniumLibrary
 Library          DateTime
 

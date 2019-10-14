@@ -1,7 +1,7 @@
 *** Settings ***
-Documentation     Smear_Searchpage_Checks.robot tests that header, navigation, datepicker, tree structure and footer are loaded on the searchpage.
-Resource          Smear_Resource.robot
-Default Tags      Searchpage
+Documentation     Smear_Searchpage_Checks tests that header, navigation, datepicker, tree structure and footer are loaded on the searchpage.
+Resource          ../resources/Smear_Resource.robot
+Force Tags        Searchpage
 Suite Setup       Open SMEAR
 Suite Teardown    Close SMEAR
 
