@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Smear_Searchpage_Functionalities tests searches from different stations with different variables using different search options.
-Resource          ../resources/Smear_Resource.robot
+Resource          resources/Smear_Resource.robot
 Force Tags        Searchpage
 Suite Setup       Open SMEAR
 Suite Teardown    Close SMEAR
