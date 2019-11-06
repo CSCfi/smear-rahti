@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Smear_Frontpage_Functionalities tests changing date using day/week option, arrow buttons, date input field and calendar.
-Resource          ../resources/Smear_Resource.robot
+Resource          resources/Smear_Resource.robot
 Force Tags        Frontpage
 Suite Setup       Open SMEAR
 Suite Teardown    Close SMEAR
