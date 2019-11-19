@@ -22,11 +22,7 @@ RUN chmod +x /usr/local/bin/chromedriver
 
 RUN git clone https://github.com/CSCfi/smear-rahti.git && cd smear-rahti/ && git checkout dev
 
-ADD /scripts/run_smoke_test.sh /usr/local/bin
-RUN chmod a+x /usr/local/bin/run_smoke_test.sh
-
 ADD /scripts/run_regression_test.sh /usr/local/bin
 RUN chmod a+x /usr/local/bin/run_regression_test.sh
 
-CMD ["run_smoke_test.sh"]
 CMD ["run_regression_test.sh"]
