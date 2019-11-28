@@ -102,59 +102,53 @@ public class CSV {
         sb.append(LM + "\n");
         if (tsa1.length == tsa2.length) {
             if (fa1.length == fa2.length && fa1.length == fa3.length && tsa1.length == fa1.length) {
-                boolean virhenäytetty = false;
-                int j = 0;
-                for (int i = 0; i < fa1.length - 1; i++) {
-                    if (!(Float.isNaN(fa1[i]) && Float.isNaN(fa2[i]) && Float.isNaN(fa1[i])))
-                        try {
-                            sb.append(/*sdf.format(*/ tsa1[i].toString()/*.toInstant()*/);
-                            sb.append(COMMA);
-                            sb.append(nan(fa1[i]));
-                            sb.append(COMMA);
-                            sb.append(nan(fa2[i]));
-                            sb.append(COMMA);
-                            sb.append(nan(fa3[i]));
-                            sb.append("\n");
-                        } catch (NullPointerException e) {
-                            if (!virhenäytetty) {
-                                System.err.println("NullPointerException3 i=" + i);
-                                virhenäytetty = true;
-                            }
-                            j = i;
-                        }
-                }
-                if (virhenäytetty) {
-                    System.err.println("Viimeinen NullPointerException3 i=" + j);
-                }
+                tulostus3(sb, tsa1, fa1, fa2, fa3);
             } else { //different lengths like 23040/768 = 30
-                int pitka = tsa1.length * HALFHOUR;
-                boolean virhenäytetty = false;
-                int j = 0;
-                for (int i = 0; i < tsa1.length - 1; i++) {
-                    if (!(Float.isNaN(fa1[i]) && Float.isNaN(fa2[i]) && Float.isNaN(fa1[i])))
-                        try {
-                            sb.append(/*sdf.format(*/ tsa1[i].toString()/*.toInstant()*/);
-                            sb.append(COMMA);
-                            sb.append(nan(fa1[i]));
-                            sb.append(COMMA);
-                            sb.append(nan(fa2[i * HALFHOUR]));
-                            sb.append(COMMA);
-                            sb.append(nan(fa3[i * HALFHOUR]));
-                            sb.append("\n");
-                        } catch (NullPointerException e) {
-                            if (!virhenäytetty) {
-                                System.err.println("NullPointerException3b i=" + i);
-                                virhenäytetty = true;
+                int remainder;
+                int max;
+                if (tsa1.length > tsa2.length) {
+                    remainder = tsa1.length % tsa2.length;
+                    max = tsa1.length;
+                } else {
+                    remainder = tsa2.length % tsa1.length;
+                    max = tsa2.length;
+                }
+                if (30 == remainder) {
+                    int pitka = tsa1.length * HALFHOUR;
+                    boolean virhenäytetty = false;
+                    int j = 0;
+                    for (int i = 0; i < tsa1.length - 1; i++) {
+                        if (!(Float.isNaN(fa1[i]) && Float.isNaN(fa2[i]) && Float.isNaN(fa1[i])))
+                            try {
+                                sb.append(/*sdf.format(*/ tsa1[i].toString()/*.toInstant()*/);
+                                sb.append(COMMA);
+                                sb.append(nan(fa1[i]));
+                                sb.append(COMMA);
+                                sb.append(nan(fa2[i * HALFHOUR]));
+                                sb.append(COMMA);
+                                sb.append(nan(fa3[i * HALFHOUR]));
+                                sb.append("\n");
+                            } catch (NullPointerException e) {
+                                if (!virhenäytetty) {
+                                    System.err.println("NullPointerException3b i=" + i);
+                                    virhenäytetty = true;
+                                }
+                                j = i;
                             }
-                            j = i;
-                        }
+                    }
+                    if (virhenäytetty) {
+                        System.err.println("Viimeinen NullPointerException3b i=" + j);
+                    }
+                    System.out.println("CSV fa1 length: " + fa1.length);
+                    if (pitka != fa2.length || pitka != fa3.length)
+                        System.out.println("CSV fa lengths: " + tsa1.length + " " + fa2.length + " " + fa3.length);
+                } else { // remainder != 30
+                    System.err.println("jakojäännös: " + remainder);
+                    if (tsa1.length == max)
+                        tulostus3(sb, tsa2, fa1, fa2, fa3);
+                    else
+                        tulostus3(sb, tsa1, fa1, fa2, fa3);
                 }
-                if (virhenäytetty) {
-                    System.err.println("Viimeinen NullPointerException3b i=" + j);
-                }
-                System.out.println("CSV fa1 length: " + fa1.length);
-                if (pitka != fa2.length || pitka != fa3.length)
-                    System.out.println("CSV fa lengths: " + tsa1.length + " " + fa2.length + " " + fa3.length);
             }
         } else {
             System.out.println("CSV tsa lengths: " + tsa1.length + " " + tsa2.length);
@@ -167,5 +161,32 @@ public class CSV {
             return "";
         else
             return Float.toString(s);
+    }
+
+    private static void tulostus3(StringBuilder sb, Timestamp[] tsa, float[] fa1, float[] fa2, float[] fa3) {
+        boolean virhenäytetty = false;
+        int j = 0;
+        for (int i = 0; i < fa2.length - 1; i++) {
+            if (!(Float.isNaN(fa1[i]) && Float.isNaN(fa2[i]) && Float.isNaN(fa1[i])))
+                try {
+                    sb.append(/*sdf.format(*/ tsa[i].toString()/*.toInstant()*/);
+                    sb.append(COMMA);
+                    sb.append(nan(fa1[i]));
+                    sb.append(COMMA);
+                    sb.append(nan(fa2[i]));
+                    sb.append(COMMA);
+                    sb.append(nan(fa3[i]));
+                    sb.append("\n");
+                } catch (NullPointerException e) {
+                    if (!virhenäytetty) {
+                        System.err.println("NullPointerException3 i=" + i);
+                        virhenäytetty = true;
+                    }
+                    j = i;
+                }
+        }
+        if (virhenäytetty) {
+            System.err.println("Viimeinen NullPointerException3 i=" + j);
+        }
     }
 }
