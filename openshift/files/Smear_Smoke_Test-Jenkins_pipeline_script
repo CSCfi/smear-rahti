@@ -1,0 +1,59 @@
+pipeline {
+agent any
+	stages {
+		stage('Checkout Git repository') {
+			steps {
+				echo 'Checkout Git repository'
+				git branch: 'dev', url: 'https://github.com/CSCfi/smear-rahti.git'
+			}
+		}
+		stage('Create Smear smoke test pod') {
+			steps {
+				dir("openshift/files") {
+					echo 'Create Smear smoke test pod'
+					sh 'oc create -f smearsmoketest-pod.yaml'
+				}
+			}
+		}
+		stage ("Wait until pod is running") {
+			steps {
+				script {
+					sh "while echo 'Wait until pod is running'; do oc get pod smearsmoketest | grep '1/1.*Running' && break; sleep 5; done"
+				}
+			}
+		}
+		stage('Check Smear smoke test logs') {
+			steps {
+				echo 'Check Smear smoke test logs'
+				sh 'oc logs -f smearsmoketest'
+				findText regexp: 'FAIL', alsoCheckConsoleOutput: true, succeedIfFound: false
+			}
+		}
+		stage('Create Smear smoke test reports') {
+			steps {
+				echo 'Create Smear smoke test reports'
+				script {
+					step (
+						[
+						$class              : 'RobotPublisher',
+						outputPath          : 'smoke_test_reports',
+						outputFileName      : "*.xml",
+						reportFileName      : "report.html",
+						logFileName         : "log.html",
+						disableArchiveOutput: false,
+						passThreshold       : 100.0,
+						unstableThreshold   : 100.0,
+						otherFiles          : "",
+						]
+					)
+				}
+			}
+		}
+	}
+	post('Delete Smear smoke test pod') {
+		always {
+			echo 'Delete Smear smoke test pod'
+			sh 'oc delete pod smearsmoketest'
+		}
+	}
+}

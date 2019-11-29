@@ -1,0 +1,59 @@
+pipeline {
+agent any
+	stages {
+		stage('Checkout Git repository') {
+			steps {
+				echo 'Checkout Git repository'
+				git branch: 'dev', url: 'https://github.com/CSCfi/smear-rahti.git'
+			}
+		}
+		stage('Create Smear regression test pod') {
+			steps {
+				dir("openshift/files") {
+					echo 'Create Smear regression test pod'
+					sh 'oc create -f smearregressiontest-pod.yaml'
+				}
+			}
+		}
+		stage ("Wait until pod is running") {
+			steps {
+				script {
+					sh "while echo 'Wait until pod is running'; do oc get pod smearregressiontest | grep '1/1.*Running' && break; sleep 5; done"
+				}
+			}
+		}
+		stage('Check Smear regression test logs') {
+			steps {
+				echo 'Check Smear regression test logs'
+				sh 'oc logs -f smearregressiontest'
+				findText regexp: 'FAIL', alsoCheckConsoleOutput: true, succeedIfFound: false
+			}
+		}
+		stage('Create Smear regression test reports') {
+			steps {
+				echo 'Create Smear regression test reports'
+				script {
+					step (
+						[
+						$class              : 'RobotPublisher',
+						outputPath          : 'regression_test_reports',
+						outputFileName      : "*.xml",
+						reportFileName      : "report.html",
+						logFileName         : "log.html",
+						disableArchiveOutput: false,
+						passThreshold       : 100.0,
+						unstableThreshold   : 100.0,
+						otherFiles          : "",
+						]
+					)
+				}
+			}
+		}
+	}
+	post('Delete Smear regression test pod') {
+		always {
+			echo 'Delete Smear regression test pod'
+			sh 'oc delete pod smearregressiontest'
+		}
+	}
+}
