@@ -29,9 +29,9 @@ agent any
 				findText regexp: 'FAIL', alsoCheckConsoleOutput: true, succeedIfFound: false
 			}
 		}
-		stage('Create Smear smoke test reports') {
+		stage('Publish Smear smoke test reports') {
 			steps {
-				echo 'Create Smear smoke test reports'
+				echo 'Publish Smear smoke test reports'
 				script {
 					step (
 						[
