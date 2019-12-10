@@ -177,18 +177,7 @@
             let pituus = document.getElementById("pituus").value;
             nyt = aika.clone();
             ennen = nyt.clone();
-
-            if ('week' == pituus) {
-                ennen.subtract(7, 'days');
-            } else if ('year' == pituus) {
-                ennen.subtract(365, 'days');
-            } else if ('month' == pituus) {
-                ennen.subtract(31, 'days');
-            } else {
-                ennen.subtract(1, 'days');
-            }
-
-            times = aikaparametritulostus(ennen, nyt);
+            times = aikaerotus(pituus, ennen, nyt);
         }
 
         function minusbutton() {
@@ -209,7 +198,7 @@
             } else {
                 nyt.subtract(1, 'days');
                 ennen = nyt.clone();
-                ennen.subtract(7, 'days');
+                ennen.subtract(1, 'days');
             }
             aika = nyt.clone(); // 11 lines above
             times = aikaparametritulostus(ennen, nyt);
@@ -232,7 +221,7 @@
                 nyt.add(1, 'days');
                 nyt = tarkista(nyt);
                 ennen = nyt.clone();
-                ennen.add(7, 'days');
+                ennen.add(1, 'days');
             }
             aika = nyt.clone(); // 11 lines above
             times = aikaparametritulostus(ennen, nyt);
@@ -257,6 +246,10 @@
         }
 
         function plotbutton() {
+        	let to = $('#datepicker1').datepicker('getDate');
+        	nyt = to;
+        	ennen = nyt.clone();
+        	times = aikaerotus(document.getElementById("pituus").value, ennen, nyt);
             let nodes = $('#tree').tree('getSelectedNodes');
             avgtype = document.getElementById("avgtype").value;
             let quality = document.getElementById("quality").value;

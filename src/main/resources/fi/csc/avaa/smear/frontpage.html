@@ -360,7 +360,7 @@
             } else {
                 nyt.subtract(1, 'days');
                 ennen = nyt.clone();
-                ennen.subtract(7, 'days');
+                ennen.subtract(1, 'days');
             }
             aika = nyt.clone(); // 11 lines above
             times = aikaparametritulostus(ennen, nyt);
@@ -380,7 +380,7 @@
                 nyt.add(1, 'days');
                 nyt = tarkista(nyt);
                 ennen = nyt.clone();
-                ennen.add(7, 'days');
+                ennen.add(1, 'days');
             }
             aika = nyt.clone(); // 11 lines above
             times = aikaparametritulostus(ennen, nyt);

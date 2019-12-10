@@ -11,6 +11,19 @@ function tarkista(nyt) {
     return nyt;
 }
 
+function aikaerotus(pituus, ennen, nyt) {
+	if ('week' == pituus) {
+		ennen.subtract(7, 'days');
+	} else if ('year' == pituus) {
+		ennen.subtract(365, 'days');
+	} else if ('month' == pituus) {
+		ennen.subtract(31, 'days');
+	} else {
+		ennen.subtract(1, 'days');
+	}
+	return aikaparametritulostus(ennen, nyt);
+}
+
 function taulu(table) {
     let asemataulu = table.split("_", 2);
     let asema = asemataulu[0];
