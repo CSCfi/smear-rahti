@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: BuildConfig
+metadata:
+  name: smearregressiontest
+spec:
+  runPolicy: "Serial"
+  source:
+    contextDir: openshift
+    git:
+      ref: dev
+      uri: 'https://github.com/CSCfi/smear-rahti'
+    type: Git
+  strategy:
+    dockerStrategy:
+      dockerfilePath: smearregressiontest.Dockerfile
+    type: Docker
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'smearregressiontest:latest'
+      namespace: avaa-smear-new-conf
+  triggers:
+  - github:
+      secretReference:
+        name: smear-github-webhook
+    type: GitHub
