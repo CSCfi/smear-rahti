@@ -197,9 +197,9 @@ public class Saatavuus {
             } else {
                 query = "SELECT ".concat(varNames.stream().collect(Collectors.joining(", "))).concat(" FROM " + table + " WHERE samptime >= ? AND samptime <= ?");
             }
-            long startTime = System.nanoTime();
+            //long startTime = System.nanoTime();
             varExistCounts.putAll(getVariableAvailabilityValues(query, startDate, endDate, varNames, considerQuality));
-            long endTime = System.nanoTime();
+            //long endTime = System.nanoTime();
         }
         return varExistCounts;
     }

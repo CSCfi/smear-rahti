@@ -57,7 +57,7 @@ public class Server {
 		config.setJdbcUrl(openshiftUrl);
 		config.setUsername(dbUser);
 		config.setPassword(dbPassword);
-        config.setMaximumPoolSize(24); // require the production value?? dbadm said that it should be small
+        config.setMaximumPoolSize(44); // require the production value?? dbadm said that it should be small
         config.setReadOnly(true);
         config.addDataSourceProperty("autoReconnect", true);
         config.setLeakDetectionThreshold(24000);

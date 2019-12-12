@@ -36,7 +36,7 @@
     <script src="/static/js/csckirjasto.js"></script>
     <script type="text/javascript">
         //var d = new Date();
-        var nyt = moment().subtract(1, 'days'); //to
+        var nyt = moment(); //to
         var ennen = moment().subtract(11, 'days'); //from
         var aika = nyt.clone(); // To datepickerin viimeisin valinta!
         var times = aikaparametritulostus(ennen, nyt);
@@ -337,7 +337,7 @@
 
         function selectFunction() {
             let pituus = document.getElementById("pituus").value;
-            nyt = aika.clone();//moment($('#datepicker1').datepicker().Date);
+            nyt = moment($('#datepicker1').datepicker('Date'));
             ennen = nyt.clone();
 
             if ('week' == pituus) {
@@ -370,22 +370,25 @@
 
         function plusbutton() {
             let pituus = document.getElementById("pituus").value;
-            nyt = aika.clone(); //moment($('#datepicker1').datepicker().Date);
+            let to = aika.clone(); //moment($('#datepicker1').datepicker('Date'));
             if ('week' == pituus) {
-                nyt.add(7, 'days');
-                nyt = tarkista(nyt);
-                ennen = nyt.clone();
-                ennen.add(7, 'days');
+                to.add(7, 'days');
+                to = tarkista(to);
+                ennen = to.clone();
+                ennen.subtract(7, 'days');
             } else {
-                nyt.add(1, 'days');
-                nyt = tarkista(nyt);
-                ennen = nyt.clone();
-                ennen.add(1, 'days');
+            	console.log("To0: "+to);
+                to.add(1, 'days');
+                console.log("To1: "+to);
+                to = tarkista(to);
+                console.log("aika: "+aika);
+                ennen = to.clone();
+                ennen.subtract(1, 'days');
             }
-            aika = nyt.clone(); // 11 lines above
-            times = aikaparametritulostus(ennen, nyt);
-            $('#datepicker1').datepicker('update', aika.toDate())
-            reDraw(nyt);
+            aika = to.clone(); 
+            times = aikaparametritulostus(ennen, to);
+            $('#datepicker1').datepicker('update', to.toDate())
+            reDraw(to);
         }
 
     </script>
@@ -414,6 +417,7 @@
                 "autoclose": true,
                 "format": 'yyyy-mm-dd'
             });
+            $('#datepicker1').datepicker('update', aika.toDate());
             $(function () {
                 $('#datepicker1').datepicker().on('changeDate', function (e) {
                     nyt = moment(e.date);

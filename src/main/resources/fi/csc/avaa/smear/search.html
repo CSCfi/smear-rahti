@@ -41,7 +41,7 @@
     <script src="/static/js/tree.jquery.js"></script>
     <script src="/static/js/csckirjasto.js"></script>
     <script type="text/javascript">
-        var nyt = moment().subtract(1, 'days');
+        var nyt = moment();
         var ennen = moment().subtract(31, 'days'); //from
         var times = aikaparametritulostus(ennen, nyt);
         var aika = nyt.clone(); // To datepickerin viimeisin valinta!
@@ -214,14 +214,20 @@
                 ennen = nyt.clone();
                 ennen.add(7, 'days');
             } else if ('year' == pituus) {
+            	nyt.add(365, 'days');
+            	nyt = tarkista(nyt);
+            	ennen = nyt.clone();
                 ennen.subtract(365, 'days');
             } else if ('month' == pituus) {
+            	nyt.add(31, 'days');
+            	nyt = tarkista(nyt);
+            	ennen = nyt.clone();
                 ennen.subtract(31, 'days');
             } else {
                 nyt.add(1, 'days');
                 nyt = tarkista(nyt);
                 ennen = nyt.clone();
-                ennen.add(1, 'days');
+                ennen.subtract(1, 'days');
             }
             aika = nyt.clone(); // 11 lines above
             times = aikaparametritulostus(ennen, nyt);
@@ -247,7 +253,7 @@
 
         function plotbutton() {
         	let to = $('#datepicker1').datepicker('getDate');
-        	nyt = to;
+        	nyt = moment(to);
         	ennen = nyt.clone();
         	times = aikaerotus(document.getElementById("pituus").value, ennen, nyt);
             let nodes = $('#tree').tree('getSelectedNodes');
@@ -327,6 +333,7 @@
                 "autoclose": true,
                 "format": 'yyyy-mm-dd'
             });
+            $('#datepicker1').datepicker('update', aika.toDate());
             $(function () {
                 $('#datepicker1').datepicker().on('changeDate', function (e) {
                     nyt = moment(e.date);

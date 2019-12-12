@@ -36,7 +36,7 @@ public class SQL {
 	public final static int WINDSPEED = 2;
 	public final static int DMPS = 17;
 	private final static String SELECT = "SELECT samptime, ";
-    private final static String SELECTV = "SELECT SAMPTIME, ";
+    //private final static String SELECTV = "SELECT SAMPTIME, ";
 	private final static String FROM = " FROM ";
 	private final static String EHTO = " WHERE samptime > ? AND samptime < ?";
     private final static String EHTOV = " WHERE SAMPTIME > ? AND SAMPTIME < ?";
@@ -234,6 +234,7 @@ public class SQL {
 			json[TEMPERATURE] = jt.googlechart(TEMPERATURE);
 			json[AIRPRESSURE] = jp.googlechart(AIRPRESSURE);
 			json[WINDSPEED] = jws.googlechart(WINDSPEED);
+			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -293,7 +294,7 @@ public class SQL {
 
             qr = arrayQuery("av_c, F_c, E", 3, KUM_EDDY, EHTO, from, to, connection);
             fake = qr.faa;
-            tsake = qr.tsa;
+            //tsake = qr.tsa;
 
             qr = arrayQuery("av_c, F_c, E", 3, VAR_EDDY, EHTO, from, to, connection);
             fave = qr.faa;

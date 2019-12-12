@@ -139,9 +139,9 @@ public class CSV {
                     if (virhenäytetty) {
                         System.err.println("Viimeinen NullPointerException3b i=" + j);
                     }
-                    System.out.println("CSV fa1 length: " + fa1.length);
+                    System.out.println("CSV3 fa1 length: " + fa1.length);
                     if (pitka != fa2.length || pitka != fa3.length)
-                        System.out.println("CSV fa lengths: " + tsa1.length + " " + fa2.length + " " + fa3.length);
+                        System.out.println("CSV3 fa lengths: " + tsa1.length + " " + fa2.length + " " + fa3.length);
                 } else { // remainder != 30
                     System.err.println("jakojäännös: " + remainder);
                     if (tsa1.length == max)
@@ -151,7 +151,13 @@ public class CSV {
                 }
             }
         } else {
-            System.out.println("CSV tsa lengths: " + tsa1.length + " " + tsa2.length);
+            System.out.println("CSV3 tsa lengths: " + tsa1.length + " " + tsa2.length);
+            if (tsa1.length > tsa2.length) {
+            	tulostus3(sb, tsa2, fa1, fa2, fa3);
+            }else {            
+            	 tulostus3(sb, tsa1, fa1, fa2, fa3);
+            }
+            
         }
         return sb.toString();
     }
@@ -166,24 +172,29 @@ public class CSV {
     private static void tulostus3(StringBuilder sb, Timestamp[] tsa, float[] fa1, float[] fa2, float[] fa3) {
         boolean virhenäytetty = false;
         int j = 0;
-        for (int i = 0; i < fa2.length - 1; i++) {
-            if (!(Float.isNaN(fa1[i]) && Float.isNaN(fa2[i]) && Float.isNaN(fa1[i])))
-                try {
-                    sb.append(/*sdf.format(*/ tsa[i].toString()/*.toInstant()*/);
-                    sb.append(COMMA);
-                    sb.append(nan(fa1[i]));
-                    sb.append(COMMA);
-                    sb.append(nan(fa2[i]));
-                    sb.append(COMMA);
-                    sb.append(nan(fa3[i]));
-                    sb.append("\n");
-                } catch (NullPointerException e) {
-                    if (!virhenäytetty) {
-                        System.err.println("NullPointerException3 i=" + i);
-                        virhenäytetty = true;
-                    }
-                    j = i;
-                }
+        for (int i = 0; i < tsa.length - 1; i++) {
+        	try {
+        		if (!(Float.isNaN(fa1[i]) && Float.isNaN(fa2[i]) && Float.isNaN(fa1[i])))
+        			try {
+        				sb.append(/*sdf.format(*/ tsa[i].toString()/*.toInstant()*/);
+        				sb.append(COMMA);
+        				sb.append(nan(fa1[i]));
+        				sb.append(COMMA);
+        				sb.append(nan(fa2[i]));
+        				sb.append(COMMA);
+        				sb.append(nan(fa3[i]));
+        				sb.append("\n");
+        			} catch (NullPointerException e) {
+        				if (!virhenäytetty) {
+        					System.err.println("NullPointerException3 i=" + i);
+        					virhenäytetty = true;
+        				}
+        				j = i;
+        			}
+        	} catch (ArrayIndexOutOfBoundsException e) {
+        		System.err.println("Taulukko loppui kierroksella: "+i);
+        		break;
+        	}
         }
         if (virhenäytetty) {
             System.err.println("Viimeinen NullPointerException3 i=" + j);

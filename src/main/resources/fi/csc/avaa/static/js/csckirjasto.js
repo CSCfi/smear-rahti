@@ -5,7 +5,7 @@ function aikaparametritulostus(ennen, nyt) {
 }
 
 function tarkista(nyt) {
-    if (nyt.second() > moment().second()) {
+    if (nyt.isAfter( moment() )) {
         return moment();
     }
     return nyt;
