@@ -5,10 +5,23 @@ function aikaparametritulostus(ennen, nyt) {
 }
 
 function tarkista(nyt) {
-    if (nyt.second() > moment().second()) {
+    if (nyt.isAfter( moment() )) {
         return moment();
     }
     return nyt;
+}
+
+function aikaerotus(pituus, ennen, nyt) {
+	if ('week' == pituus) {
+		ennen.subtract(7, 'days');
+	} else if ('year' == pituus) {
+		ennen.subtract(365, 'days');
+	} else if ('month' == pituus) {
+		ennen.subtract(31, 'days');
+	} else {
+		ennen.subtract(1, 'days');
+	}
+	return aikaparametritulostus(ennen, nyt);
 }
 
 function taulu(table) {

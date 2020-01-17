@@ -22,7 +22,7 @@ public class TreeService {
     static String[] tablenames = new String[Cache.SIZE]; // there is amount for new tables
     String tree = "You should not see this tree"; // will be replased by real content!!!
     DataSource db;
-    ArrayList[] stationchildren;
+    ArrayList<Category>[] stationchildren;
     Tree stations = new Tree();
 
     public TreeService(DataSource db) {
@@ -36,7 +36,7 @@ public class TreeService {
             resultSet.beforeFirst();
             int i = 0;
             while (resultSet.next()) {
-                ArrayList ja = new ArrayList();
+                ArrayList<Category> ja = new ArrayList<Category>();
                 stations.add(new Category(resultSet.getString(2), resultSet.getInt(1), ja));
                 stationchildren[i++] = ja;
             }
@@ -55,7 +55,7 @@ public class TreeService {
                     connection.prepareStatement(
                             "SELECT * FROM  VariableMetadata ORDER BY tableID, category, ui_sort_order");
             resultSet = statement.executeQuery();
-            ArrayList jabc = null;
+            ArrayList<Leaf> jabc = null;
             String excategory = "";
             i = -1;
             int exsid = -1;
@@ -68,7 +68,7 @@ public class TreeService {
                         if (category.equals(excategory) && (sid == exsid)) {
                             addNode(sid, jabc, category, resultSet, tablename);
                         } else { //new category
-                            jabc = new ArrayList();
+                            jabc = new ArrayList<Leaf>();
                             try {
                                 stationchildren[sid].add(new Category(category, i--, jabc));
 
@@ -98,7 +98,7 @@ public class TreeService {
         return this.tree;
     }
 
-    private void addNode(int sid, ArrayList jabc, String category, ResultSet rs, String table) {
+    private void addNode(int sid, ArrayList<Leaf> jabc, String category, ResultSet rs, String table) {
         if (null == table || table.isEmpty()) {
             System.err.println("No table:" + sid);
         }

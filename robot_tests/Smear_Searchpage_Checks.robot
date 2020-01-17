@@ -1,14 +1,17 @@
 *** Settings ***
-Documentation     Smear_Searchpage_Checks.robot tests that header, navigation, datepicker, tree structure and footer are loaded on the searchpage.
-Resource          Smear_Resource.robot
-Default Tags      Searchpage
-Suite Setup       Open SMEAR searchpage
+Documentation     Smear_Searchpage_Checks tests that header, navigation, datepicker, tree structure and footer are loaded on the searchpage.
+Resource          resources/Smear_Resource.robot
+Force Tags        Searchpage
+Suite Setup       Open SMEAR
 Suite Teardown    Close SMEAR
 
 *** Variables ***
 
 *** Test Cases ***
-Check header
+Check header searchpage
+    [Tags]    Smoke
+    Click Link         Search
+    Title Should Be    SMEAR search
     Check header
 
 Check navigation
@@ -19,6 +22,7 @@ Check datepicker
 
 Check tree structure
     [Tags]    Smoke
+    Click Link         Search
     Wait Until Page Contains Element    id=tree
     Wait Until Element Contains    id=tree    Värriö
     Element Should Contain         id=tree    Värriö
@@ -32,7 +36,7 @@ Check tree structure
     Element Should Contain         id=tree    Kuivajärvi
     Element Should Contain         id=tree    Dome_C
 
-Check footer
+Check footer searchpage
     Check footer
 
 Check plot

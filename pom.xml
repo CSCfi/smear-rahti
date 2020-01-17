@@ -4,14 +4,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>fi.csc.avaa.smear</groupId>
 	<artifactId>dashboard</artifactId>
-    <version>0.0.8</version>
+    <version>0.0.9</version>
     <name>SMEAR etusivu ja haku</name>
     <description>SMEAR frontpage and search</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
-        <undertow.version>2.0.26.Final</undertow.version>
+        <undertow.version>2.0.28.Final</undertow.version>
         <mysql.version>2.4.3</mysql.version>
 		<hikaricp.version>3.3.1</hikaricp.version>
 		<maven-shade-plugin.version>3.2.1</maven-shade-plugin.version>

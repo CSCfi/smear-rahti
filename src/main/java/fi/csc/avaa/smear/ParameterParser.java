@@ -31,7 +31,7 @@ public class ParameterParser {
 			System.err.println("Ei aikaa");
 		} else {
 				LocalDateTime d = LocalDateTime.parse(f, sdf);
-				return Timestamp.valueOf(d);
+				return Timestamp.valueOf(d.withMinute(0).withSecond(0));
 		}
 		return null;
 	}

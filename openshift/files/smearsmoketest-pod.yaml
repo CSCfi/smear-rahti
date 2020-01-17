@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: smearsmoketest
+  name: smearsmoketest
+spec:
+  containers:
+    - image: >-
+        docker-registry.default.svc:5000/avaa-smear-new-conf/smearsmoketest:latest
+      imagePullPolicy: Always
+      name: smearsmoketest
+      resources:
+        limits:
+          cpu: '2'
+          memory: 8Gi
+        requests:
+          cpu: 100m
+          memory: 200Mi
+      volumeMounts:
+        - mountPath: /smear-rahti/robot_tests/smoke_test_reports
+          name: smearsmoketest
+          subPath: jobs/Smear_Smoke_Test/workspace/smoke_test_reports
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: default-token-d2xmq
+          readOnly: true
+  restartPolicy: Never
+  volumes:
+    - name: smearsmoketest
+      persistentVolumeClaim:
+        claimName: jenkins
+    - name: default-token-d2xmq
+      secret:
+        defaultMode: 420
+        secretName: default-token-d2xmq

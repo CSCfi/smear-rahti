@@ -29,19 +29,19 @@
           integrity="sha256-FAOaXTpl90/K8cXmSdsskbQN3nKYulhCpPbcFzGTWKI=" rel="stylesheet"/>
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     <!--script src="/static/js/hc/7.1.2/highcharts.js"></script-->
-    <script src="/static/js/hc/7.2.0/highcharts-more.js"></script>
-    <script src="/static/js/hc/7.2.0/highstock.js"></script>
-    <script src="/static/js/hc/7.2.0/modules/accessibility.js"></script>
-    <script src="/static/js/hc/7.2.0/modules/heatmap.js"></script>
-    <script src="/static/js/hc/7.2.0/modules/boost.js"></script>
-    <script src="/static/js/hc/7.2.0/modules/data.js"></script>
-    <script src="/static/js/hc/7.2.0/modules/exporting.js"></script>
-    <script src="/static/js/hc/7.2.0/modules/export-data.js"></script>
+    <script src="/static/js/hc/7.2.1/highcharts-more.js"></script>
+    <script src="/static/js/hc/7.2.1/highstock.js"></script>
+    <script src="/static/js/hc/7.2.1/modules/accessibility.js"></script>
+    <script src="/static/js/hc/7.2.1/modules/heatmap.js"></script>
+    <script src="/static/js/hc/7.2.1/modules/boost.js"></script>
+    <script src="/static/js/hc/7.2.1/modules/data.js"></script>
+    <script src="/static/js/hc/7.2.1/modules/exporting.js"></script>
+    <script src="/static/js/hc/7.2.1/modules/export-data.js"></script>
     <script src="/static/js/moment.min.js"></script>
     <script src="/static/js/tree.jquery.js"></script>
     <script src="/static/js/csckirjasto.js"></script>
     <script type="text/javascript">
-        var nyt = moment().subtract(1, 'days');
+        var nyt = moment();
         var ennen = moment().subtract(31, 'days'); //from
         var times = aikaparametritulostus(ennen, nyt);
         var aika = nyt.clone(); // To datepickerin viimeisin valinta!
@@ -177,18 +177,7 @@
             let pituus = document.getElementById("pituus").value;
             nyt = aika.clone();
             ennen = nyt.clone();
-
-            if ('week' == pituus) {
-                ennen.subtract(7, 'days');
-            } else if ('year' == pituus) {
-                ennen.subtract(365, 'days');
-            } else if ('month' == pituus) {
-                ennen.subtract(31, 'days');
-            } else {
-                ennen.subtract(1, 'days');
-            }
-
-            times = aikaparametritulostus(ennen, nyt);
+            times = aikaerotus(pituus, ennen, nyt);
         }
 
         function minusbutton() {
@@ -209,7 +198,7 @@
             } else {
                 nyt.subtract(1, 'days');
                 ennen = nyt.clone();
-                ennen.subtract(7, 'days');
+                ennen.subtract(1, 'days');
             }
             aika = nyt.clone(); // 11 lines above
             times = aikaparametritulostus(ennen, nyt);
@@ -225,14 +214,20 @@
                 ennen = nyt.clone();
                 ennen.add(7, 'days');
             } else if ('year' == pituus) {
+            	nyt.add(365, 'days');
+            	nyt = tarkista(nyt);
+            	ennen = nyt.clone();
                 ennen.subtract(365, 'days');
             } else if ('month' == pituus) {
+            	nyt.add(31, 'days');
+            	nyt = tarkista(nyt);
+            	ennen = nyt.clone();
                 ennen.subtract(31, 'days');
             } else {
                 nyt.add(1, 'days');
                 nyt = tarkista(nyt);
                 ennen = nyt.clone();
-                ennen.add(7, 'days');
+                ennen.subtract(1, 'days');
             }
             aika = nyt.clone(); // 11 lines above
             times = aikaparametritulostus(ennen, nyt);
@@ -257,6 +252,10 @@
         }
 
         function plotbutton() {
+        	let to = $('#datepicker1').datepicker('getDate');
+        	nyt = moment(to);
+        	ennen = nyt.clone();
+        	times = aikaerotus(document.getElementById("pituus").value, ennen, nyt);
             let nodes = $('#tree').tree('getSelectedNodes');
             avgtype = document.getElementById("avgtype").value;
             let quality = document.getElementById("quality").value;
@@ -334,6 +333,7 @@
                 "autoclose": true,
                 "format": 'yyyy-mm-dd'
             });
+            $('#datepicker1').datepicker('update', aika.toDate());
             $(function () {
                 $('#datepicker1').datepicker().on('changeDate', function (e) {
                     nyt = moment(e.date);
