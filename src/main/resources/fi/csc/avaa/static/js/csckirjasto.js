@@ -5,8 +5,9 @@ function aikaparametritulostus(ennen, nyt) {
 }
 
 function tarkista(nyt) {
-    if (nyt.isAfter( moment() )) {
-        return moment();
+	const endofdatabase = moment("2019-11-04")
+    if (nyt.isAfter( endofdatabase )) {
+        return endofdatabase;
     }
     return nyt;
 }
