@@ -1,0 +1,55 @@
+{
+    "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+    "@type": "SoftwareSourceCode",
+    "license": "https://spdx.org/licenses/Apache-2.0",
+    "codeRepository": "https://github.com/CSCfi/smear-rahti.git",
+    "name": "smear-rahti",
+    "identifier": " swh:1:dir:414370837aa2b133937713cfc64c060c5a091231",
+    "description": "New version of the avaa-smear targeted to run in rahti\n\n",
+    "applicationCategory": "Atmospheric Sciences",
+    "developmentStatus": "unsupported",
+    "funder": {
+        "@type": "Organization",
+        "name": "Ministry of Education and Culture, Finland"
+    },
+    "keywords": [
+        "Meteorology",
+        "gas",
+        "radiadion",
+        "soil",
+        "flux",
+        "aerosol"
+    ],
+    "programmingLanguage": [
+        "Java",
+        "Javascript"
+    ],
+    "runtimePlatform": [
+        "JVM",
+        "Browser"
+    ],
+    "softwareRequirements": [
+        "java-11, docker to run"
+    ],
+    "author": [
+        {
+            "@type": "Person",
+            "@id": "http://orcid.org/0000-0003-3111-1515",
+            "givenName": "Pekka",
+            "familyName": "Järveläinen",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "CSC"
+            }
+        },
+        {
+            "@type": "Person",
+            "givenName": "Shreyas",
+            "familyName": "Deshpande",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "CSC"
+            }
+        }
+    ]
+}
