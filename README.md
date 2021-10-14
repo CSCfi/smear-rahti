@@ -1,11 +1,16 @@
 # smear-rahti
-New version of the avaa-smear targeted to run in rahti
+This project archived because it has replaced by
+https://github.com/CSCfi/smear-frontend
+and
+https://github.com/CSCfi/smear-backend
+
+Old version of the avaa-smear targeted to run in rahti, container.
 
 Undertow project which connect to SMEAR-database. 
 
 ## Backgroud
 
-This test is part of AVAA-platform https://avaa.tdata.fi modernization AVAA-843.
+This was test part of removed AVAA-platform modernization AVAA-843.
 There is no more any framework like Spring or Speedment.
 
 ### Installing
